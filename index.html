@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>reSTART | Partners & Athletes Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #2CA4AD;
+    --teal-dim: rgba(44,164,173,0.15);
+    --yellow: #FDC317;
+    --yellow-dim: rgba(253,195,23,0.15);
+    --dark: #293334;
+    --dark-card: #1E2A2B;
+    --dark-surface: #223031;
+    --dark-border: #3A4C4D;
+    --white: #F0F4F4;
+    --white-dim: rgba(240,244,244,0.6);
+    --red: #E74C4C;
+    --red-dim: rgba(231,76,76,0.15);
+    --green: #34C759;
+    --green-dim: rgba(52,199,89,0.15);
+    --orange: #F5A623;
+    --orange-dim: rgba(245,166,35,0.15);
+    --purple: #9B59B6;
+    --purple-dim: rgba(155,89,182,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--dark-card);
+    border-bottom: 1px solid var(--dark-border);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--teal), var(--yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--dark);
+  }
+
+  .header-title h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+  }
+
+  .header-title h1 span { color: var(--teal); }
+
+  .header-title p {
+    font-size: 12px;
+    color: var(--white-dim);
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .last-updated {
+    font-size: 11px;
+    color: var(--white-dim);
+  }
+
+  .refresh-btn {
+    background: var(--teal-dim);
+    border: 1px solid var(--teal);
+    color: var(--teal);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .refresh-btn:hover {
+    background: var(--teal);
+    color: var(--dark);
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    padding: 20px 32px;
+  }
+
+  .stat-card {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+
+  .stat-card .label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white-dim);
+    margin-bottom: 6px;
+  }
+
+  .stat-card .value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  .stat-card .value.yellow { color: var(--yellow); }
+  .stat-card .value.red { color: var(--red); }
+  .stat-card .value.green { color: var(--green); }
+  .stat-card .value.purple { color: var(--purple); }
+
+  /* ── MAIN ── */
+  .main-content { padding: 0 32px 40px; }
+
+  .tabs-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--dark-card);
+    border-radius: 12px;
+    padding: 4px;
+    border: 1px solid var(--dark-border);
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    padding: 10px 20px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: var(--white-dim);
+    border: none;
+    background: transparent;
+    white-space: nowrap;
+  }
+
+  .tab.active { background: var(--teal); color: var(--dark); }
+  .tab:not(.active):hover { color: var(--white); background: var(--dark-surface); }
+
+  .search-box { position: relative; }
+
+  .search-box input {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    padding: 10px 16px 10px 40px;
+    color: var(--white);
+    font-size: 14px;
+    width: 260px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-box input:focus { border-color: var(--teal); }
+  .search-box input::placeholder { color: var(--white-dim); }
+
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--white-dim);
+  }
+
+  /* ── TABLE ── */
+  .table-container {
+    background: var(--dark-card);
+    border: 1px solid var(--dark-border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .table-scroll { overflow-x: auto; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  thead th {
+    background: var(--dark-surface);
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white-dim);
+    border-bottom: 1px solid var(--dark-border);
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+  }
+
+  tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(58,76,77,0.5);
+    vertical-align: middle;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: var(--dark-surface); }
+
+  .name-cell { font-weight: 600; color: var(--white); }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge.teal { background: var(--teal-dim); color: var(--teal); }
+  .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
+  .badge.purple { background: var(--purple-dim); color: var(--purple); }
+
+  .code-cell {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    background: var(--dark-surface);
+    padding: 5px 10px;
+    border-radius: 6px;
+    display: inline-block;
+    color: var(--yellow);
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .code-cell:hover { border-color: var(--yellow); }
+  .code-cell.copied { border-color: var(--green); color: var(--green); }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status.active { background: var(--green-dim); color: var(--green); }
+  .status.expiring { background: var(--orange-dim); color: var(--orange); }
+  .status.expired { background: var(--red-dim); color: var(--red); }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status.active .status-dot { animation: pulse 2s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── EXPAND ROW ── */
+  .expand-btn {
+    background: none;
+    border: none;
+    color: var(--white-dim);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+  }
+
+  .expand-btn:hover { color: var(--teal); }
+
+  .detail-row td { padding: 0 16px; }
+
+  .detail-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+
+  .detail-content.open {
+    max-height: 300px;
+    padding: 12px 0 16px;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .detail-item .d-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--white-dim);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .detail-item .d-value { font-size: 13px; color: var(--white); }
+
+  /* ── VOUCHER FILTERS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 16px 0;
+  }
+
+  .section-header h2 { font-size: 16px; font-weight: 700; }
+
+  .voucher-filter-tabs { display: flex; gap: 4px; }
+
+  .voucher-filter {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--dark-border);
+    background: transparent;
+    color: var(--white-dim);
+    transition: all 0.2s;
+  }
+
+  .voucher-filter.active {
+    border-color: var(--teal);
+    color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  .voucher-redeemed td { opacity: 0.45; }
+
+  /* ── INFO NOTE ── */
+  .info-note {
+    margin-top: 16px;
+    background: var(--dark-surface);
+    border: 1px solid var(--dark-border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--white-dim);
+    line-height: 1.7;
+  }
+
+  .info-note strong { color: var(--yellow); font-weight: 600; }
+
+  /* ── CONFIG BANNER ── */
+  .config-banner {
+    background: var(--yellow-dim);
+    border: 1px solid var(--yellow);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .config-banner svg { flex-shrink: 0; color: var(--yellow); margin-top: 2px; }
+
+  .config-banner h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+
+  .config-banner p {
+    font-size: 13px;
+    color: var(--white-dim);
+    line-height: 1.6;
+  }
+
+  .config-banner code {
+    background: var(--dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--teal);
+  }
+
+  /* ── EMPTY ── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--white-dim);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .header, .stats-bar, .main-content, .config-banner { padding-left: 16px; padding-right: 16px; }
+    .config-banner { margin-left: 16px; margin-right: 16px; }
+    .search-box input { width: 100%; }
+    .tabs-wrapper { flex-direction: column; align-items: stretch; }
+    table { min-width: 650px; }
+    .stat-card .value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">R</div>
+    <div class="header-title">
+      <h1>re<span>START</span></h1>
+      <p>Partners & Athletes Dashboard</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="last-updated" id="lastUpdated"></span>
+    <button class="refresh-btn" onclick="fetchData()">↻ Refresh</button>
+  </div>
+</header>
+
+<div class="config-banner" id="configBanner" style="display:none">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div>
+    <h3>Google Sheet not connected</h3>
+    <p>Open this file, find <code>const SHEET_ID = ''</code> near the top of the script, and paste your published Google Sheet ID.</p>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="label">Sponsors</div>
+    <div class="value" id="statSponsors">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Partners</div>
+    <div class="value yellow" id="statPartners">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Active Contracts</div>
+    <div class="value green" id="statActive">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Expiring (30 days)</div>
+    <div class="value red" id="statExpiring">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Total Vouchers</div>
+    <div class="value yellow" id="statVouchers">0</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Special Cases</div>
+    <div class="value purple" id="statSpecial">0</div>
+  </div>
+</div>
+
+<div class="main-content">
+  <div class="tabs-wrapper">
+    <div class="tabs">
+      <button class="tab active" data-tab="sponsors" onclick="switchTab('sponsors')">Sponsored Athletes</button>
+      <button class="tab" data-tab="partners" onclick="switchTab('partners')">Partners</button>
+      <button class="tab" data-tab="vouchers" onclick="switchTab('vouchers')">Vouchers</button>
+      <button class="tab" data-tab="special" onclick="switchTab('special')">Special Cases</button>
+    </div>
+    <div class="search-box">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search name, code..." oninput="filterTable()">
+    </div>
+  </div>
+
+  <!-- SPONSORS -->
+  <div id="sponsorsPanel" class="table-container">
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:30px"></th>
+          <th>Name</th>
+          <th>Sport / Profession</th>
+          <th>Membership</th>
+          <th>Contract Period</th>
+          <th>Status</th>
+          <th>Discount Code</th>
+          <th>Referral Discount</th>
+        </tr>
+      </thead>
+      <tbody id="sponsorsBody"></tbody>
+    </table>
+    </div>
+    <div class="info-note">
+      <strong>Membership Renewals:</strong> Memberships renew every 2 months based on contract start date. Services do not carry over between renewal periods. At the start of each new 2 month period, the allocation resets.
+    </div>
+  </div>
+
+  <!-- PARTNERS -->
+  <div id="partnersPanel" class="table-container" style="display:none">
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:30px"></th>
+          <th>Partner Name</th>
+          <th>Category</th>
+          <th>Contract Period</th>
+          <th>Status</th>
+          <th>Referral Code</th>
+          <th>Discount</th>
+        </tr>
+      </thead>
+      <tbody id="partnersBody"></tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- VOUCHERS -->
+  <div id="vouchersPanel" class="table-container" style="display:none">
+    <div class="section-header">
+      <h2>Service Vouchers</h2>
+    </div>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Issued To</th>
+          <th>Service</th>
+          <th>Voucher Code</th>
+          <th>Expiry Date</th>
+        </tr>
+      </thead>
+      <tbody id="vouchersBody"></tbody>
+    </table>
+    </div>
+    <div class="info-note">
+      <strong>Note 1:</strong> All vouchers are valid for one year from issue date. Always check the expiry date before processing a redemption.<br>
+      <strong>Note 2:</strong> Physical vouchers have no code. If someone comes without the physical voucher, they cannot redeem. Digital vouchers all have a unique code.
+    </div>
+  </div>
+
+  <!-- SPECIAL CASES -->
+  <div id="specialPanel" class="table-container" style="display:none">
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Case Details</th>
+          <th>Discount Code</th>
+        </tr>
+      </thead>
+      <tbody id="specialBody"></tbody>
+    </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════════════════════
+const SHEET_ID = '1lmLeGOyMf_cUxv1vBwGPuupJ3pMvsYlV_eujiz_au3U';
+
+const TAB_SPONSORS = 'Sponsors';
+const TAB_PARTNERS = 'Partners';
+const TAB_VOUCHERS = 'Vouchers';
+const TAB_SPECIAL  = 'Special Cases';
+// ════════════════════════════════════════════════════════════════
+
+let allSponsors = [];
+let allPartners = [];
+let allVouchers = [];
+let allSpecial  = [];
+let currentTab = 'sponsors';
+let voucherFilter = 'all';
+let expandedRows = new Set();
+
+// ── CSV fetch + parse ──
+async function fetchSheetCSV(tabName) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch ${tabName}`);
+  return parseCSV(await res.text());
+}
+
+function parseCSV(text) {
+  const lines = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '"') { inQ = !inQ; cur += ch; }
+    else if (ch === '\n' && !inQ) { lines.push(cur); cur = ''; }
+    else { cur += ch; }
+  }
+  if (cur) lines.push(cur);
+
+  const headers = splitCSV(lines[0]).map(h => h.trim());
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
+    const vals = splitCSV(lines[i]);
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h] = (vals[idx] || '').trim(); });
+    // Skip rows where first column is empty (notes/spacer rows)
+    if (obj[headers[0]]) rows.push(obj);
+  }
+  return rows;
+}
+
+function splitCSV(line) {
+  const r = []; let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else { inQ = !inQ; } }
+    else if (ch === ',' && !inQ) { r.push(cur); cur = ''; }
+    else { cur += ch; }
+  }
+  r.push(cur);
+  return r;
+}
+
+// ── Demo data ──
+function loadDemoData() {
+  allSponsors = [
+    { 'Name':'Saeed Alqubaisi','Sport/Profession':'Jiu Jitsu','Contract Start':'2026-06-20','Contract End':'2026-12-20','Discount Code':'SA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Zamam Al Hammadi','Sport/Profession':'MMA','Contract Start':'2026-06-02','Contract End':'2026-12-02','Discount Code':'ZA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Yasser Kayali','Sport/Profession':'Fitness/PT','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'YK20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Khalifa hamad aldarmaki','Sport/Profession':'Triathlete','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'KA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Anna Litovchenko','Sport/Profession':'Fitness/PT','Contract Start':'2026-07-03','Contract End':'2027-01-06','Discount Code':'Anna20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Ahmed Alhosani','Sport/Profession':'Triathlete','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'AH20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Renato Cardoso','Sport/Profession':'Jiu jitsu','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'RC20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Enrique Gonzalez','Sport/Profession':'Fitness/PT','Contract Start':'2026-05-23','Contract End':'2026-08-23','Discount Code':'EZ20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Shir Misan','Sport/Profession':'Fitness/PT','Contract Start':'2026-07-03','Contract End':'2027-01-03','Discount Code':'Shir 20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Zayed Alkatheeri','Sport/Profession':'Jiu jitsu','Contract Start':'2026-07-03','Contract End':'2027-07-03','Discount Code':'Z20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Maddy Black','Sport/Profession':'Cycling','Contract Start':'2026-03-10','Contract End':'2027-09-10','Discount Code':'Maddy20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+  ];
+
+  allPartners = [
+    { 'Name':'Muscle Up Fitness','Category':'Calisthenics','Contract Start':'2026-03-05','Contract End':'2027-03-05','Referral Code':'MUF20','Discount %':'20% (Only first Session)','Notes':'Their employees can do 2 sports massage and 3 recovery modalities monthly.' },
+  ];
+
+  allVouchers = [
+    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU012026','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU022026','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Hour Compression','Expiry Date':'2026-12-31','Code':'MU032026','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Hour Compression','Expiry Date':'2026-12-31','Code':'MU042026','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'45 Minutes IR Sauna','Expiry Date':'2026-12-31','Code':'MU052026','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'45 Minutes IR Sauna','Expiry Date':'2026-12-31','Code':'MU062026','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-012026','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-022026','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-032026','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-042026','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-042026','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+    { 'Issued To':'Hussain Alsaiqa (Neighbour)','Service':'Rookie Membership','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
+  ];
+
+  allSpecial = [
+    { 'Name':'Mostafa Radi','Case':'Can do occasional sessions on weekdays.','Discount Code':'Radi20 (20%)' },
+    { 'Name':'Sharon Soldner','Case':'Can do occasional sessions on weekdays.','Discount Code':'Sharon20' },
+    { 'Name':'Jayson Castillo','Case':'Not a sponsor but a long time member. Have Rookie to PRO upgrade.','Discount Code':'MSTRJ15 (15%)' },
+  ];
+}
+
+// ── Helpers ──
+function getStatus(endDate) {
+  if (!endDate || endDate === '-') return { label: 'Unknown', cls: 'expired' };
+  const end = new Date(endDate);
+  const now = new Date();
+  const days = Math.ceil((end - now) / 86400000);
+  if (days < 0) return { label: 'Expired', cls: 'expired' };
+  if (days <= 30) return { label: `${days}d left`, cls: 'expiring' };
+  return { label: 'Active', cls: 'active' };
+}
+
+function fmtDate(d) {
+  if (!d || d === '-') return '';
+  const dt = new Date(d);
+  if (isNaN(dt)) return d;
+  return dt.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+}
+
+function esc(s) {
+  if (!s) return '';
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Render: Sponsors ──
+function renderSponsors(data) {
+  const tb = document.getElementById('sponsorsBody');
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
+
+  tb.innerHTML = data.map((s, i) => {
+    const st = getStatus(s['Contract End']);
+    const id = `sp-${i}`;
+    const open = expandedRows.has(id);
+    return `
+      <tr>
+        <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
+        <td class="name-cell">${esc(s.Name)}</td>
+        <td>${esc(s['Sport/Profession'])}</td>
+        <td><span class="badge teal">${esc(s.Membership)}</span></td>
+        <td>${fmtDate(s['Contract Start'])} → ${fmtDate(s['Contract End'])}</td>
+        <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
+        <td>${s['Discount Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code'])}')">${esc(s['Discount Code'])}</span>` : ''}</td>
+        <td>${esc(s['Referral Discount %'])}</td>
+      </tr>
+      <tr class="detail-row"><td colspan="8"><div class="detail-content ${open?'open':''}" id="detail-${id}">
+        <div class="detail-grid">
+          <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(s['Contract Start'])}</div></div>
+          <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(s['Contract End'])}</div></div>
+          <div class="detail-item"><div class="d-label">Notes</div><div class="d-value">${esc(s.Notes) || 'No notes'}</div></div>
+        </div>
+      </div></td></tr>`;
+  }).join('');
+}
+
+// ── Render: Partners ──
+function renderPartners(data) {
+  const tb = document.getElementById('partnersBody');
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><p>No partners found</p></div></td></tr>'; return; }
+
+  tb.innerHTML = data.map((p, i) => {
+    const st = getStatus(p['Contract End']);
+    const id = `pt-${i}`;
+    const open = expandedRows.has(id);
+    return `
+      <tr>
+        <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
+        <td class="name-cell">${esc(p.Name)}</td>
+        <td><span class="badge yellow">${esc(p.Category)}</span></td>
+        <td>${fmtDate(p['Contract Start'])} → ${fmtDate(p['Contract End'])}</td>
+        <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
+        <td>${p['Referral Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(p['Referral Code'])}')">${esc(p['Referral Code'])}</span>` : ''}</td>
+        <td>${esc(p['Discount %'])}</td>
+      </tr>
+      <tr class="detail-row"><td colspan="7"><div class="detail-content ${open?'open':''}" id="detail-${id}">
+        <div class="detail-grid">
+          <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(p['Contract Start'])}</div></div>
+          <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(p['Contract End'])}</div></div>
+          <div class="detail-item"><div class="d-label">Notes</div><div class="d-value">${esc(p.Notes) || 'No notes'}</div></div>
+        </div>
+      </div></td></tr>`;
+  }).join('');
+}
+
+// ── Render: Vouchers ──
+function renderVouchers(data) {
+  const tb = document.getElementById('vouchersBody');
+  let filtered = data;
+
+  if (!filtered.length) { tb.innerHTML = '<tr><td colspan="4"><div class="empty-state"><p>No vouchers found</p></div></td></tr>'; return; }
+
+  tb.innerHTML = filtered.map(v => {
+    const codeDisplay = v.Code && v.Code !== 'N/A'
+      ? `<span class="code-cell" onclick="copyCode(this,'${esc(v.Code)}')">${esc(v.Code)}</span>`
+      : '<span style="color:var(--white-dim);font-size:12px">Physical</span>';
+    return `
+      <tr>
+        <td class="name-cell">${esc(v['Issued To'])}</td>
+        <td>${esc(v.Service)}</td>
+        <td>${codeDisplay}</td>
+        <td>${fmtDate(v['Expiry Date'])}</td>
+      </tr>`;
+  }).join('');
+}
+
+// ── Render: Special Cases ──
+function renderSpecial(data) {
+  const tb = document.getElementById('specialBody');
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="3"><div class="empty-state"><p>No special cases</p></div></td></tr>'; return; }
+
+  tb.innerHTML = data.map(s => `
+    <tr>
+      <td class="name-cell">${esc(s.Name)}</td>
+      <td>${esc(s.Case)}</td>
+      <td>${s['Discount Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code']).split(' ')[0]}')">${esc(s['Discount Code'])}</span>` : ''}</td>
+    </tr>
+  `).join('');
+}
+
+// ── Stats ──
+function updateStats() {
+  document.getElementById('statSponsors').textContent = allSponsors.length;
+  document.getElementById('statPartners').textContent = allPartners.length;
+
+  const all = [...allSponsors.map(s => s['Contract End']), ...allPartners.map(p => p['Contract End'])];
+  document.getElementById('statActive').textContent = all.filter(d => getStatus(d).cls === 'active').length;
+  document.getElementById('statExpiring').textContent = all.filter(d => getStatus(d).cls === 'expiring').length;
+
+  document.getElementById('statVouchers').textContent = allVouchers.length;
+  document.getElementById('statSpecial').textContent = allSpecial.length;
+}
+
+// ── Tab switching ──
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  ['sponsors','partners','vouchers','special'].forEach(p => {
+    document.getElementById(p + 'Panel').style.display = p === tab ? '' : 'none';
+  });
+  filterTable();
+}
+
+// ── Search ──
+function filterTable() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  if (currentTab === 'sponsors') {
+    renderSponsors(allSponsors.filter(s => (s.Name||'').toLowerCase().includes(q) || (s['Discount Code']||'').toLowerCase().includes(q) || (s['Sport/Profession']||'').toLowerCase().includes(q)));
+  } else if (currentTab === 'partners') {
+    renderPartners(allPartners.filter(p => (p.Name||'').toLowerCase().includes(q) || (p['Referral Code']||'').toLowerCase().includes(q) || (p.Category||'').toLowerCase().includes(q)));
+  } else if (currentTab === 'vouchers') {
+    renderVouchers(allVouchers.filter(v => (v['Issued To']||'').toLowerCase().includes(q) || (v.Service||'').toLowerCase().includes(q) || (v.Code||'').toLowerCase().includes(q)));
+  } else {
+    renderSpecial(allSpecial.filter(s => (s.Name||'').toLowerCase().includes(q) || (s['Discount Code']||'').toLowerCase().includes(q)));
+  }
+}
+
+function filterVouchers(f) {
+  voucherFilter = f;
+  document.querySelectorAll('.voucher-filter').forEach(b => b.classList.toggle('active', b.dataset.vf === f));
+  filterTable();
+}
+
+function toggle(id) {
+  expandedRows.has(id) ? expandedRows.delete(id) : expandedRows.add(id);
+  filterTable();
+}
+
+function copyCode(el, code) {
+  navigator.clipboard.writeText(code).then(() => {
+    el.classList.add('copied');
+    const orig = el.textContent;
+    el.textContent = '✓ Copied';
+    setTimeout(() => { el.classList.remove('copied'); el.textContent = orig; }, 1500);
+  });
+}
+
+// ── Fetch ──
+async function fetchData() {
+  if (!SHEET_ID) {
+    document.getElementById('configBanner').style.display = 'flex';
+    loadDemoData();
+    renderAll();
+    return;
+  }
+  document.getElementById('configBanner').style.display = 'none';
+  try {
+    const [sp, pt, vc, sc] = await Promise.all([
+      fetchSheetCSV(TAB_SPONSORS),
+      fetchSheetCSV(TAB_PARTNERS),
+      fetchSheetCSV(TAB_VOUCHERS),
+      fetchSheetCSV(TAB_SPECIAL).catch(() => []),
+    ]);
+    // Filter out note/spacer rows
+    allSponsors = sp.filter(r => r.Name && !r.Name.startsWith('Important'));
+    allPartners = pt.filter(r => r.Name && !r.Name.startsWith('Important'));
+    allVouchers = vc.filter(r => r['Issued To'] && !r['Issued To'].startsWith('Important'));
+    allSpecial  = sc.filter(r => r.Name);
+    renderAll();
+    document.getElementById('lastUpdated').textContent = `Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
+  } catch (err) {
+    console.error(err);
+    document.getElementById('configBanner').style.display = 'flex';
+    loadDemoData();
+    renderAll();
+  }
+}
+
+function renderAll() {
+  updateStats();
+  renderSponsors(allSponsors);
+  renderPartners(allPartners);
+  renderVouchers(allVouchers);
+  renderSpecial(allSpecial);
+}
+
+fetchData();
+</script>
+</body>
+</html>
