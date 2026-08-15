@@ -39,7 +39,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* ── HEADER ── */
   .header {
     background: var(--dark-card);
     border-bottom: 1px solid var(--dark-border);
@@ -51,407 +50,216 @@
     gap: 16px;
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
 
   .logo-mark {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 40px; height: 40px; border-radius: 10px;
     background: linear-gradient(135deg, var(--teal), var(--yellow));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 20px; color: var(--dark);
   }
 
-  .header-title h1 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-  }
-
+  .header-title h1 { font-size: 18px; font-weight: 700; letter-spacing: 1.5px; }
   .header-title h1 span { color: var(--teal); }
+  .header-title p { font-size: 12px; color: var(--white-dim); letter-spacing: 0.5px; margin-top: 2px; }
 
-  .header-title p {
-    font-size: 12px;
-    color: var(--white-dim);
-    letter-spacing: 0.5px;
-    margin-top: 2px;
-  }
-
-  .header-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .last-updated {
-    font-size: 11px;
-    color: var(--white-dim);
-  }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .last-updated { font-size: 11px; color: var(--white-dim); }
 
   .refresh-btn {
-    background: var(--teal-dim);
-    border: 1px solid var(--teal);
-    color: var(--teal);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+    background: var(--teal-dim); border: 1px solid var(--teal); color: var(--teal);
+    padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
   }
+  .refresh-btn:hover { background: var(--teal); color: var(--dark); }
 
-  .refresh-btn:hover {
-    background: var(--teal);
-    color: var(--dark);
-  }
-
-  /* ── STATS BAR ── */
   .stats-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    padding: 20px 32px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px; padding: 20px 32px;
   }
 
   .stat-card {
-    background: var(--dark-card);
-    border: 1px solid var(--dark-border);
-    border-radius: 12px;
-    padding: 16px 20px;
+    background: var(--dark-card); border: 1px solid var(--dark-border);
+    border-radius: 12px; padding: 16px 20px;
   }
-
-  .stat-card .label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--white-dim);
-    margin-bottom: 6px;
-  }
-
-  .stat-card .value {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--teal);
-  }
-
+  .stat-card .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--white-dim); margin-bottom: 6px; }
+  .stat-card .value { font-size: 26px; font-weight: 700; color: var(--teal); }
   .stat-card .value.yellow { color: var(--yellow); }
   .stat-card .value.red { color: var(--red); }
   .stat-card .value.green { color: var(--green); }
   .stat-card .value.purple { color: var(--purple); }
 
-  /* ── MAIN ── */
   .main-content { padding: 0 32px 40px; }
 
   .tabs-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 20px;
   }
 
   .tabs {
-    display: flex;
-    gap: 4px;
-    background: var(--dark-card);
-    border-radius: 12px;
-    padding: 4px;
-    border: 1px solid var(--dark-border);
-    flex-wrap: wrap;
+    display: flex; gap: 4px; background: var(--dark-card);
+    border-radius: 12px; padding: 4px; border: 1px solid var(--dark-border); flex-wrap: wrap;
   }
 
   .tab {
-    padding: 10px 20px;
-    border-radius: 9px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--white-dim);
-    border: none;
-    background: transparent;
-    white-space: nowrap;
+    padding: 10px 20px; border-radius: 9px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all 0.2s; color: var(--white-dim);
+    border: none; background: transparent; white-space: nowrap;
   }
-
   .tab.active { background: var(--teal); color: var(--dark); }
   .tab:not(.active):hover { color: var(--white); background: var(--dark-surface); }
 
   .search-box { position: relative; }
-
   .search-box input {
-    background: var(--dark-card);
-    border: 1px solid var(--dark-border);
-    border-radius: 10px;
-    padding: 10px 16px 10px 40px;
-    color: var(--white);
-    font-size: 14px;
-    width: 260px;
-    outline: none;
-    transition: border-color 0.2s;
+    background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 10px;
+    padding: 10px 16px 10px 40px; color: var(--white); font-size: 14px; width: 260px;
+    outline: none; transition: border-color 0.2s;
   }
-
   .search-box input:focus { border-color: var(--teal); }
   .search-box input::placeholder { color: var(--white-dim); }
+  .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--white-dim); }
 
-  .search-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--white-dim);
-  }
-
-  /* ── TABLE ── */
   .table-container {
-    background: var(--dark-card);
-    border: 1px solid var(--dark-border);
-    border-radius: 14px;
-    overflow: hidden;
+    background: var(--dark-card); border: 1px solid var(--dark-border);
+    border-radius: 14px; overflow: hidden;
   }
-
   .table-scroll { overflow-x: auto; }
 
   table { width: 100%; border-collapse: collapse; }
 
   thead th {
-    background: var(--dark-surface);
-    padding: 14px 16px;
-    text-align: left;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--white-dim);
-    border-bottom: 1px solid var(--dark-border);
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
+    background: var(--dark-surface); padding: 14px 16px; text-align: left;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
+    color: var(--white-dim); border-bottom: 1px solid var(--dark-border);
+    white-space: nowrap; position: sticky; top: 0;
   }
 
   tbody td {
-    padding: 14px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid rgba(58,76,77,0.5);
-    vertical-align: middle;
+    padding: 14px 16px; font-size: 14px;
+    border-bottom: 1px solid rgba(58,76,77,0.5); vertical-align: middle;
   }
-
   tbody tr:last-child td { border-bottom: none; }
   tbody tr { transition: background 0.15s; }
   tbody tr:hover { background: var(--dark-surface); }
 
   .name-cell { font-weight: 600; color: var(--white); }
+  .notes-cell { font-size: 13px; color: var(--white-dim); max-width: 250px; }
 
   .badge {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    display: inline-block; padding: 4px 10px; border-radius: 6px;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
   }
-
   .badge.teal { background: var(--teal-dim); color: var(--teal); }
   .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
   .badge.purple { background: var(--purple-dim); color: var(--purple); }
 
   .code-cell {
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    font-size: 13px;
-    background: var(--dark-surface);
-    padding: 5px 10px;
-    border-radius: 6px;
-    display: inline-block;
-    color: var(--yellow);
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.2s;
+    font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px;
+    background: var(--dark-surface); padding: 5px 10px; border-radius: 6px;
+    display: inline-block; color: var(--yellow); letter-spacing: 0.5px;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.2s;
   }
-
   .code-cell:hover { border-color: var(--yellow); }
   .code-cell.copied { border-color: var(--green); color: var(--green); }
 
   .status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
   }
-
   .status.active { background: var(--green-dim); color: var(--green); }
   .status.expiring { background: var(--orange-dim); color: var(--orange); }
   .status.expired { background: var(--red-dim); color: var(--red); }
 
-  .status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .status.active .status-dot { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
-
-  /* ── EXPAND ROW ── */
   .expand-btn {
-    background: none;
-    border: none;
-    color: var(--white-dim);
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 4px;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
+    background: none; border: none; color: var(--white-dim); cursor: pointer;
+    padding: 4px; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center;
   }
-
   .expand-btn:hover { color: var(--teal); }
 
   .detail-row td { padding: 0 16px; }
+  .detail-content { overflow: hidden; max-height: 0; transition: max-height 0.3s ease, padding 0.3s ease; }
+  .detail-content.open { max-height: 300px; padding: 12px 0 16px; }
 
-  .detail-content {
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-  }
-
-  .detail-content.open {
-    max-height: 300px;
-    padding: 12px 0 16px;
-  }
-
-  .detail-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-  }
-
-  .detail-item .d-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--white-dim);
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-
+  .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .detail-item .d-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--white-dim); margin-bottom: 4px; font-weight: 600; }
   .detail-item .d-value { font-size: 13px; color: var(--white); }
 
-  /* ── VOUCHER FILTERS ── */
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 16px 16px 0;
+  /* ── TOGGLE SWITCH ── */
+  .toggle-wrap { display: flex; align-items: center; gap: 8px; }
+
+  .toggle {
+    position: relative; width: 44px; height: 24px; cursor: pointer;
+    -webkit-appearance: none; appearance: none; outline: none;
+    background: var(--dark-border); border-radius: 12px; border: none;
+    transition: background 0.3s;
   }
-
-  .section-header h2 { font-size: 16px; font-weight: 700; }
-
-  .voucher-filter-tabs { display: flex; gap: 4px; }
-
-  .voucher-filter {
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid var(--dark-border);
-    background: transparent;
-    color: var(--white-dim);
-    transition: all 0.2s;
+  .toggle:checked { background: var(--green); }
+  .toggle::before {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%; background: var(--white);
+    transition: transform 0.3s;
   }
+  .toggle:checked::before { transform: translateX(20px); }
+  .toggle:disabled { opacity: 0.5; cursor: wait; }
 
-  .voucher-filter.active {
-    border-color: var(--teal);
-    color: var(--teal);
-    background: var(--teal-dim);
-  }
+  .toggle-label { font-size: 12px; font-weight: 600; }
+  .toggle-label.redeemed { color: var(--green); }
+  .toggle-label.not-redeemed { color: var(--white-dim); }
 
   .voucher-redeemed td { opacity: 0.45; }
 
-  /* ── INFO NOTE ── */
-  .info-note {
-    margin-top: 16px;
-    background: var(--dark-surface);
-    border: 1px solid var(--dark-border);
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-size: 13px;
-    color: var(--white-dim);
-    line-height: 1.7;
+  /* ── VOUCHER FILTERS ── */
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; padding: 16px 16px 0;
   }
+  .section-header h2 { font-size: 16px; font-weight: 700; }
 
+  .voucher-filter-tabs { display: flex; gap: 4px; }
+  .voucher-filter {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    cursor: pointer; border: 1px solid var(--dark-border); background: transparent;
+    color: var(--white-dim); transition: all 0.2s;
+  }
+  .voucher-filter.active { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
+
+  .info-note {
+    margin-top: 16px; background: var(--dark-surface); border: 1px solid var(--dark-border);
+    border-radius: 10px; padding: 16px 20px; font-size: 13px; color: var(--white-dim); line-height: 1.7;
+  }
   .info-note strong { color: var(--yellow); font-weight: 600; }
 
-  /* ── CONFIG BANNER ── */
   .config-banner {
-    background: var(--yellow-dim);
-    border: 1px solid var(--yellow);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin: 20px 32px;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    background: var(--yellow-dim); border: 1px solid var(--yellow); border-radius: 12px;
+    padding: 20px 24px; margin: 20px 32px; display: flex; align-items: flex-start; gap: 14px;
   }
-
   .config-banner svg { flex-shrink: 0; color: var(--yellow); margin-top: 2px; }
+  .config-banner h3 { font-size: 14px; font-weight: 700; color: var(--yellow); margin-bottom: 6px; }
+  .config-banner p { font-size: 13px; color: var(--white-dim); line-height: 1.6; }
+  .config-banner code { background: var(--dark); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--teal); }
 
-  .config-banner h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--yellow);
-    margin-bottom: 6px;
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--white-dim); }
+
+  /* ── Toast notification ── */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: var(--dark-card); border: 1px solid var(--green); color: var(--green);
+    padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 600;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000;
   }
+  .toast.error { border-color: var(--red); color: var(--red); }
+  .toast.show { opacity: 1; }
 
-  .config-banner p {
-    font-size: 13px;
-    color: var(--white-dim);
-    line-height: 1.6;
-  }
-
-  .config-banner code {
-    background: var(--dark);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: var(--teal);
-  }
-
-  /* ── EMPTY ── */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--white-dim);
-  }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .header, .stats-bar, .main-content, .config-banner { padding-left: 16px; padding-right: 16px; }
     .config-banner { margin-left: 16px; margin-right: 16px; }
     .search-box input { width: 100%; }
     .tabs-wrapper { flex-direction: column; align-items: stretch; }
-    table { min-width: 650px; }
+    table { min-width: 700px; }
     .stat-card .value { font-size: 22px; }
   }
 </style>
@@ -481,30 +289,12 @@
 </div>
 
 <div class="stats-bar">
-  <div class="stat-card">
-    <div class="label">Sponsors</div>
-    <div class="value" id="statSponsors">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Partners</div>
-    <div class="value yellow" id="statPartners">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Active Contracts</div>
-    <div class="value green" id="statActive">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Expiring (30 days)</div>
-    <div class="value red" id="statExpiring">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Total Vouchers</div>
-    <div class="value yellow" id="statVouchers">0</div>
-  </div>
-  <div class="stat-card">
-    <div class="label">Special Cases</div>
-    <div class="value purple" id="statSpecial">0</div>
-  </div>
+  <div class="stat-card"><div class="label">Sponsors</div><div class="value" id="statSponsors">0</div></div>
+  <div class="stat-card"><div class="label">Partners</div><div class="value yellow" id="statPartners">0</div></div>
+  <div class="stat-card"><div class="label">Active Contracts</div><div class="value green" id="statActive">0</div></div>
+  <div class="stat-card"><div class="label">Expiring (30 days)</div><div class="value red" id="statExpiring">0</div></div>
+  <div class="stat-card"><div class="label">Unredeemed Vouchers</div><div class="value yellow" id="statVouchers">0</div></div>
+  <div class="stat-card"><div class="label">Special Cases</div><div class="value purple" id="statSpecial">0</div></div>
 </div>
 
 <div class="main-content">
@@ -525,18 +315,16 @@
   <div id="sponsorsPanel" class="table-container">
     <div class="table-scroll">
     <table>
-      <thead>
-        <tr>
-          <th style="width:30px"></th>
-          <th>Name</th>
-          <th>Sport / Profession</th>
-          <th>Membership</th>
-          <th>Contract Period</th>
-          <th>Status</th>
-          <th>Discount Code</th>
-          <th>Referral Discount</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th style="width:30px"></th>
+        <th>Name</th>
+        <th>Sport / Profession</th>
+        <th>Membership</th>
+        <th>Contract Period</th>
+        <th>Status</th>
+        <th>Discount Code</th>
+        <th>Referral Discount</th>
+      </tr></thead>
       <tbody id="sponsorsBody"></tbody>
     </table>
     </div>
@@ -549,17 +337,16 @@
   <div id="partnersPanel" class="table-container" style="display:none">
     <div class="table-scroll">
     <table>
-      <thead>
-        <tr>
-          <th style="width:30px"></th>
-          <th>Partner Name</th>
-          <th>Category</th>
-          <th>Contract Period</th>
-          <th>Status</th>
-          <th>Referral Code</th>
-          <th>Discount</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th style="width:30px"></th>
+        <th>Partner Name</th>
+        <th>Category</th>
+        <th>Contract Period</th>
+        <th>Status</th>
+        <th>Referral Code</th>
+        <th>Discount</th>
+        <th>Notes</th>
+      </tr></thead>
       <tbody id="partnersBody"></tbody>
     </table>
     </div>
@@ -569,17 +356,21 @@
   <div id="vouchersPanel" class="table-container" style="display:none">
     <div class="section-header">
       <h2>Service Vouchers</h2>
+      <div class="voucher-filter-tabs">
+        <button class="voucher-filter active" data-vf="all" onclick="filterVouchers('all')">All</button>
+        <button class="voucher-filter" data-vf="unredeemed" onclick="filterVouchers('unredeemed')">Unredeemed</button>
+        <button class="voucher-filter" data-vf="redeemed" onclick="filterVouchers('redeemed')">Redeemed</button>
+      </div>
     </div>
     <div class="table-scroll">
     <table>
-      <thead>
-        <tr>
-          <th>Issued To</th>
-          <th>Service</th>
-          <th>Voucher Code</th>
-          <th>Expiry Date</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th>Issued To</th>
+        <th>Service</th>
+        <th>Voucher Code</th>
+        <th>Expiry Date</th>
+        <th>Status</th>
+      </tr></thead>
       <tbody id="vouchersBody"></tbody>
     </table>
     </div>
@@ -593,25 +384,26 @@
   <div id="specialPanel" class="table-container" style="display:none">
     <div class="table-scroll">
     <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Case Details</th>
-          <th>Discount Code</th>
-        </tr>
-      </thead>
+      <thead><tr>
+        <th>Name</th>
+        <th>Case Details</th>
+        <th>Discount Code</th>
+      </tr></thead>
       <tbody id="specialBody"></tbody>
     </table>
     </div>
   </div>
-
 </div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <script>
 // ════════════════════════════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════════════════════════════
 const SHEET_ID = '1lmLeGOyMf_cUxv1vBwGPuupJ3pMvsYlV_eujiz_au3U';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyccr5ZWu3uR2Kob3of8_nmqfu2On7XGDrpcGJUeeIhYq3KIIvZsFZy981kbP50hNz3/exec';
 
 const TAB_SPONSORS = 'Sponsors';
 const TAB_PARTNERS = 'Partners';
@@ -619,10 +411,7 @@ const TAB_VOUCHERS = 'Vouchers';
 const TAB_SPECIAL  = 'Special Cases';
 // ════════════════════════════════════════════════════════════════
 
-let allSponsors = [];
-let allPartners = [];
-let allVouchers = [];
-let allSpecial  = [];
+let allSponsors = [], allPartners = [], allVouchers = [], allSpecial = [];
 let currentTab = 'sponsors';
 let voucherFilter = 'all';
 let expandedRows = new Set();
@@ -645,7 +434,6 @@ function parseCSV(text) {
     else { cur += ch; }
   }
   if (cur) lines.push(cur);
-
   const headers = splitCSV(lines[0]).map(h => h.trim());
   const rows = [];
   for (let i = 1; i < lines.length; i++) {
@@ -653,7 +441,6 @@ function parseCSV(text) {
     const vals = splitCSV(lines[i]);
     const obj = {};
     headers.forEach((h, idx) => { obj[h] = (vals[idx] || '').trim(); });
-    // Skip rows where first column is empty (notes/spacer rows)
     if (obj[headers[0]]) rows.push(obj);
   }
   return rows;
@@ -669,65 +456,6 @@ function splitCSV(line) {
   }
   r.push(cur);
   return r;
-}
-
-// ── Demo data ──
-function loadDemoData() {
-  allSponsors = [
-    { 'Name':'Saeed Alqubaisi','Sport/Profession':'Jiu Jitsu','Contract Start':'2026-06-20','Contract End':'2026-12-20','Discount Code':'SA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Zamam Al Hammadi','Sport/Profession':'MMA','Contract Start':'2026-06-02','Contract End':'2026-12-02','Discount Code':'ZA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Yasser Kayali','Sport/Profession':'Fitness/PT','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'YK20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Khalifa hamad aldarmaki','Sport/Profession':'Triathlete','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'KA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Anna Litovchenko','Sport/Profession':'Fitness/PT','Contract Start':'2026-07-03','Contract End':'2027-01-06','Discount Code':'Anna20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Ahmed Alhosani','Sport/Profession':'Triathlete','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'AH20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Renato Cardoso','Sport/Profession':'Jiu jitsu','Contract Start':'2026-03-25','Contract End':'2026-09-25','Discount Code':'RC20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Enrique Gonzalez','Sport/Profession':'Fitness/PT','Contract Start':'2026-05-23','Contract End':'2026-08-23','Discount Code':'EZ20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Shir Misan','Sport/Profession':'Fitness/PT','Contract Start':'2026-07-03','Contract End':'2027-01-03','Discount Code':'Shir 20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Zayed Alkatheeri','Sport/Profession':'Jiu jitsu','Contract Start':'2026-07-03','Contract End':'2027-07-03','Discount Code':'Z20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-    { 'Name':'Maddy Black','Sport/Profession':'Cycling','Contract Start':'2026-03-10','Contract End':'2027-09-10','Discount Code':'Maddy20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
-  ];
-
-  allPartners = [
-    { 'Name':'Muscle Up Fitness','Category':'Calisthenics','Contract Start':'2026-03-05','Contract End':'2027-03-05','Referral Code':'MUF20','Discount %':'20% (Only first Session)','Notes':'Their employees can do 2 sports massage and 3 recovery modalities monthly.' },
-  ];
-
-  allVouchers = [
-    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU012026','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU022026','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Hour Compression','Expiry Date':'2026-12-31','Code':'MU032026','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Hour Compression','Expiry Date':'2026-12-31','Code':'MU042026','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'45 Minutes IR Sauna','Expiry Date':'2026-12-31','Code':'MU052026','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'45 Minutes IR Sauna','Expiry Date':'2026-12-31','Code':'MU062026','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-012026','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-022026','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-032026','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-042026','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-042026','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'321 Sports','Service':'1 Compression Session','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'1 Sports Massage','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Platform Studio','Service':'Any modality','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Muscle Up','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-    { 'Issued To':'Hussain Alsaiqa (Neighbour)','Service':'Rookie Membership','Expiry Date':'2026-12-31','Code':'N/A','Redeemed':'' },
-  ];
-
-  allSpecial = [
-    { 'Name':'Mostafa Radi','Case':'Can do occasional sessions on weekdays.','Discount Code':'Radi20 (20%)' },
-    { 'Name':'Sharon Soldner','Case':'Can do occasional sessions on weekdays.','Discount Code':'Sharon20' },
-    { 'Name':'Jayson Castillo','Case':'Not a sponsor but a long time member. Have Rookie to PRO upgrade.','Discount Code':'MSTRJ15 (15%)' },
-  ];
 }
 
 // ── Helpers ──
@@ -750,14 +478,58 @@ function fmtDate(d) {
 
 function esc(s) {
   if (!s) return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => { t.className = 'toast'; }, 2500);
+}
+
+// ── Toggle voucher status via Apps Script ──
+async function toggleVoucher(rowIndex, currentStatus) {
+  const newStatus = currentStatus === 'Yes' ? 'No' : 'Yes';
+
+  if (!APPS_SCRIPT_URL) {
+    showToast('Apps Script URL not configured', true);
+    return;
+  }
+
+  // Optimistic update
+  const toggleEl = document.getElementById(`toggle-${rowIndex}`);
+  const labelEl = document.getElementById(`label-${rowIndex}`);
+  if (toggleEl) toggleEl.disabled = true;
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'updateVoucher',
+        row: rowIndex + 2, // +2 for header row + 0-index
+        status: newStatus
+      })
+    });
+
+    // Update local data (no-cors means we can't read response, so trust it)
+    allVouchers[rowIndex]['Redeemed'] = newStatus;
+    updateStats();
+    filterTable();
+    showToast(newStatus === 'Yes' ? '✓ Marked as Redeemed' : '✓ Marked as Unredeemed');
+  } catch (err) {
+    console.error(err);
+    showToast('Failed to update. Try again.', true);
+    filterTable();
+  }
 }
 
 // ── Render: Sponsors ──
 function renderSponsors(data) {
   const tb = document.getElementById('sponsorsBody');
   if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
-
   tb.innerHTML = data.map((s, i) => {
     const st = getStatus(s['Contract End']);
     const id = `sp-${i}`;
@@ -783,11 +555,10 @@ function renderSponsors(data) {
   }).join('');
 }
 
-// ── Render: Partners ──
+// ── Render: Partners (now with Notes column) ──
 function renderPartners(data) {
   const tb = document.getElementById('partnersBody');
-  if (!data.length) { tb.innerHTML = '<tr><td colspan="7"><div class="empty-state"><p>No partners found</p></div></td></tr>'; return; }
-
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No partners found</p></div></td></tr>'; return; }
   tb.innerHTML = data.map((p, i) => {
     const st = getStatus(p['Contract End']);
     const id = `pt-${i}`;
@@ -801,34 +572,46 @@ function renderPartners(data) {
         <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
         <td>${p['Referral Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(p['Referral Code'])}')">${esc(p['Referral Code'])}</span>` : ''}</td>
         <td>${esc(p['Discount %'])}</td>
+        <td class="notes-cell">${esc(p.Notes) || ''}</td>
       </tr>
-      <tr class="detail-row"><td colspan="7"><div class="detail-content ${open?'open':''}" id="detail-${id}">
+      <tr class="detail-row"><td colspan="8"><div class="detail-content ${open?'open':''}" id="detail-${id}">
         <div class="detail-grid">
           <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(p['Contract Start'])}</div></div>
           <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(p['Contract End'])}</div></div>
-          <div class="detail-item"><div class="d-label">Notes</div><div class="d-value">${esc(p.Notes) || 'No notes'}</div></div>
+          <div class="detail-item"><div class="d-label">Full Notes</div><div class="d-value">${esc(p.Notes) || 'No notes'}</div></div>
         </div>
       </div></td></tr>`;
   }).join('');
 }
 
-// ── Render: Vouchers ──
+// ── Render: Vouchers (with toggle) ──
 function renderVouchers(data) {
   const tb = document.getElementById('vouchersBody');
-  let filtered = data;
 
-  if (!filtered.length) { tb.innerHTML = '<tr><td colspan="4"><div class="empty-state"><p>No vouchers found</p></div></td></tr>'; return; }
+  let filtered = data;
+  if (voucherFilter === 'unredeemed') filtered = data.filter(v => (v.Redeemed || '').toLowerCase() !== 'yes');
+  if (voucherFilter === 'redeemed') filtered = data.filter(v => (v.Redeemed || '').toLowerCase() === 'yes');
+
+  if (!filtered.length) { tb.innerHTML = '<tr><td colspan="5"><div class="empty-state"><p>No vouchers found</p></div></td></tr>'; return; }
 
   tb.innerHTML = filtered.map(v => {
+    const redeemed = (v.Redeemed || '').toLowerCase() === 'yes';
+    const origIdx = allVouchers.indexOf(v);
     const codeDisplay = v.Code && v.Code !== 'N/A'
       ? `<span class="code-cell" onclick="copyCode(this,'${esc(v.Code)}')">${esc(v.Code)}</span>`
       : '<span style="color:var(--white-dim);font-size:12px">Physical</span>';
     return `
-      <tr>
+      <tr class="${redeemed ? 'voucher-redeemed' : ''}">
         <td class="name-cell">${esc(v['Issued To'])}</td>
         <td>${esc(v.Service)}</td>
         <td>${codeDisplay}</td>
         <td>${fmtDate(v['Expiry Date'])}</td>
+        <td>
+          <div class="toggle-wrap">
+            <input type="checkbox" class="toggle" id="toggle-${origIdx}" ${redeemed ? 'checked' : ''} onchange="toggleVoucher(${origIdx}, '${redeemed ? 'Yes' : 'No'}')">
+            <span class="toggle-label ${redeemed ? 'redeemed' : 'not-redeemed'}" id="label-${origIdx}">${redeemed ? 'Redeemed' : 'Not Redeemed'}</span>
+          </div>
+        </td>
       </tr>`;
   }).join('');
 }
@@ -837,7 +620,6 @@ function renderVouchers(data) {
 function renderSpecial(data) {
   const tb = document.getElementById('specialBody');
   if (!data.length) { tb.innerHTML = '<tr><td colspan="3"><div class="empty-state"><p>No special cases</p></div></td></tr>'; return; }
-
   tb.innerHTML = data.map(s => `
     <tr>
       <td class="name-cell">${esc(s.Name)}</td>
@@ -851,16 +633,14 @@ function renderSpecial(data) {
 function updateStats() {
   document.getElementById('statSponsors').textContent = allSponsors.length;
   document.getElementById('statPartners').textContent = allPartners.length;
-
   const all = [...allSponsors.map(s => s['Contract End']), ...allPartners.map(p => p['Contract End'])];
   document.getElementById('statActive').textContent = all.filter(d => getStatus(d).cls === 'active').length;
   document.getElementById('statExpiring').textContent = all.filter(d => getStatus(d).cls === 'expiring').length;
-
-  document.getElementById('statVouchers').textContent = allVouchers.length;
+  const unredeemed = allVouchers.filter(v => (v.Redeemed||'').toLowerCase() !== 'yes').length;
+  document.getElementById('statVouchers').textContent = unredeemed;
   document.getElementById('statSpecial').textContent = allSpecial.length;
 }
 
-// ── Tab switching ──
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
@@ -870,7 +650,6 @@ function switchTab(tab) {
   filterTable();
 }
 
-// ── Search ──
 function filterTable() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   if (currentTab === 'sponsors') {
@@ -904,13 +683,30 @@ function copyCode(el, code) {
   });
 }
 
+// ── Demo data ──
+function loadDemoData() {
+  allSponsors = [
+    { 'Name':'Saeed Alqubaisi','Sport/Profession':'Jiu Jitsu','Contract Start':'2026-06-20','Contract End':'2026-12-20','Discount Code':'SA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+    { 'Name':'Zamam Al Hammadi','Sport/Profession':'MMA','Contract Start':'2026-06-02','Contract End':'2026-12-02','Discount Code':'ZA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals - Every 2 months' },
+  ];
+  allPartners = [
+    { 'Name':'Muscle Up Fitness','Category':'Calisthenics','Contract Start':'2026-03-05','Contract End':'2027-03-05','Referral Code':'MUF20','Discount %':'20% (Only first Session)','Notes':'Their employees can do 2 sports massage and 3 recovery modalities monthly.' },
+  ];
+  allVouchers = [
+    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU012026','Redeemed':'No' },
+    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU022026','Redeemed':'Yes' },
+    { 'Issued To':'Platform Studio','Service':'1 Session (Any service)','Expiry Date':'2026-12-31','Code':'PS-012026','Redeemed':'No' },
+  ];
+  allSpecial = [
+    { 'Name':'Mostafa Radi','Case':'Can do occasional sessions on weekdays.','Discount Code':'Radi20 (20%)' },
+  ];
+}
+
 // ── Fetch ──
 async function fetchData() {
   if (!SHEET_ID) {
     document.getElementById('configBanner').style.display = 'flex';
-    loadDemoData();
-    renderAll();
-    return;
+    loadDemoData(); renderAll(); return;
   }
   document.getElementById('configBanner').style.display = 'none';
   try {
@@ -920,7 +716,6 @@ async function fetchData() {
       fetchSheetCSV(TAB_VOUCHERS),
       fetchSheetCSV(TAB_SPECIAL).catch(() => []),
     ]);
-    // Filter out note/spacer rows
     allSponsors = sp.filter(r => r.Name && !r.Name.startsWith('Important'));
     allPartners = pt.filter(r => r.Name && !r.Name.startsWith('Important'));
     allVouchers = vc.filter(r => r['Issued To'] && !r['Issued To'].startsWith('Important'));
@@ -930,8 +725,7 @@ async function fetchData() {
   } catch (err) {
     console.error(err);
     document.getElementById('configBanner').style.display = 'flex';
-    loadDemoData();
-    renderAll();
+    loadDemoData(); renderAll();
   }
 }
 
