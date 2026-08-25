@@ -600,13 +600,13 @@ function renderVouchers(data) {
             <td>${fmtDate(v['Expiry Date'])}</td>
             <td>
                 <div class="toggle-wrap">
-                    <input type="checkbox" class="toggle" id="received-${origIdx}" ${received ? 'checked' : ''} onchange="toggleReceived(${origIdx}, '${received ? 'Yes' : 'No'}')">
+                    <input type="checkbox" class="toggle" id="received-${origIdx}" ${received ? 'checked disabled' : ''} ${received ? '' : `onchange="toggleReceived(${origIdx}, 'No')"`}>
                     <span class="toggle-label ${received ? 'redeemed' : 'not-redeemed'}" id="received-label-${origIdx}">${received ? 'Received' : 'Not Received'}</span>
                 </div>
             </td>
             <td>
                 <div class="toggle-wrap">
-                    <input type="checkbox" class="toggle" id="toggle-${origIdx}" ${redeemed ? 'checked' : ''} onchange="toggleVoucher(${origIdx}, '${redeemed ? 'Yes' : 'No'}')">
+                    <input type="checkbox" class="toggle" id="toggle-${origIdx}" ${redeemed ? 'checked disabled' : ''} ${redeemed ? '' : `onchange="toggleVoucher(${origIdx}, 'No')"`}>
                     <span class="toggle-label ${redeemed ? 'redeemed' : 'not-redeemed'}" id="label-${origIdx}">${redeemed ? 'Redeemed' : 'Not Redeemed'}</span>
                 </div>
             </td>
