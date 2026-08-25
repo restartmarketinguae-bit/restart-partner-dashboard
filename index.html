@@ -490,13 +490,13 @@ function showToast(msg, isError) {
 }
 
 // ── Toggle voucher status via Apps Script ──
-async function toggleReceived(rowIndex, currentStatus) {
+async function toggleVoucher(rowIndex, currentStatus) {
     const newStatus = currentStatus === 'Yes' ? 'No' : 'Yes';
     if (!APPS_SCRIPT_URL) {
         showToast('Apps Script URL not configured', true);
         return;
     }
-    const toggleEl = document.getElementById(`received-${rowIndex}`);
+    const toggleEl = document.getElementById(`toggle-${rowIndex}`);
     if (toggleEl) toggleEl.disabled = true;
     try {
         const res = await fetch(APPS_SCRIPT_URL, {
@@ -504,15 +504,15 @@ async function toggleReceived(rowIndex, currentStatus) {
             mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain' },
             body: JSON.stringify({
-                action: 'updateReceived',
+                action: 'updateVoucher',
                 row: rowIndex + 2,
                 status: newStatus
             })
         });
-        allVouchers[rowIndex]['Received'] = newStatus;
+        allVouchers[rowIndex]['Redeemed'] = newStatus;
         updateStats();
         filterTable();
-        showToast(newStatus === 'Yes' ? '✓ Marked as Received' : '✓ Marked as Not Received');
+        showToast(newStatus === 'Yes' ? '✓ Marked as Redeemed' : '✓ Marked as Not Redeemed');
     } catch (err) {
         console.error(err);
         showToast('Failed to update. Try again.', true);
