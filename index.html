@@ -503,9 +503,6 @@ async function fetchData() {
     allPartners=pt.filter(r=>r.Name&&!r.Name.startsWith('Important'));
     allVouchers=vc.filter(r=>r['Issued To']&&!r['Issued To'].startsWith('Important'));
     allSpecial=sc.filter(r=>r.Name);
-    // Auto expand all voucher groups on first load
-    const groups = new Set(allVouchers.map(v => v['Issued To']));
-    groups.forEach(g => expandedGroups.add(g));
     renderAll();
     document.getElementById('lastUpdated').textContent=`Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
   } catch(err){console.error(err);document.getElementById('configBanner').style.display='flex';loadDemoData();renderAll()}
