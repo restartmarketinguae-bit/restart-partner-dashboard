@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>reSTART | reSTART Marketing Dashboard</title>
+<title>reSTART | Partners & Athletes Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -220,9 +220,7 @@
 <header class="header">
   <div class="header-left">
     <div class="logo-mark">R</div>
-    <div class="header-title"><h1>re<span>START</span></h1><p>reSTART Marketing Dashboard
-
-</p></div>
+    <div class="header-title"><h1>re<span>START</span></h1><p>Partners & Athletes Dashboard</p></div>
   </div>
   <div class="header-right">
     <span class="last-updated" id="lastUpdated"></span>
@@ -256,7 +254,7 @@
   </div>
   <div id="sponsorsPanel" class="table-container">
     <div class="table-scroll"><table>
-      <thead><tr><th style="width:30px"></th><th>Name</th><th>Sport / Profession</th><th>Membership</th><th>Contract Period</th><th>Status</th><th>Discount Code</th><th>Referral Discount</th></tr></thead>
+      <thead><tr><th style="width:30px"></th><th>Name</th><th>Sport / Profession</th><th>Membership</th><th>Contract Period</th><th>Status</th><th>Discount Code</th><th>Referral Discount</th><th>Membership Renewals</th></tr></thead>
       <tbody id="sponsorsBody"></tbody>
     </table></div>
     <div class="info-note"><strong>Membership Renewals:</strong> Memberships renew every 2 months based on contract start date. Services do not carry over between renewal periods. At the start of each new 2 month period, the allocation resets.</div>
@@ -366,6 +364,38 @@ function showToast(msg, isError) {
   setTimeout(() => { t.className = 'toast'; }, 2500);
 }
 
+// ── Membership Renewal Calculator ──
+function getRenewalDates(startDate, endDate) {
+  if (!startDate || !endDate) return '';
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  if (isNaN(start) || isNaN(end)) return '';
+  const now = new Date();
+  const renewals = [];
+  let current = new Date(start);
+  // First period starts at contract start, then every 2 months
+  while (current < end) {
+    renewals.push(new Date(current));
+    current.setMonth(current.getMonth() + 2);
+  }
+  // Format renewals with highlighting for next upcoming
+  let foundNext = false;
+  return renewals.map((d, i) => {
+    const label = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+    const periodEnd = new Date(d);
+    periodEnd.setMonth(periodEnd.getMonth() + 2);
+    if (periodEnd > end) periodEnd.setTime(end.getTime());
+    const isActive = now >= d && now < periodEnd;
+    const isPast = now >= periodEnd;
+    const isNext = !foundNext && !isPast && !isActive && d > now;
+    if (isNext) foundNext = true;
+    if (isActive) return `<span style="color:var(--green);font-weight:600;">&#9654; ${label} (Current)</span>`;
+    if (isNext) return `<span style="color:var(--yellow);font-weight:600;">&#9658; ${label} (Next)</span>`;
+    if (isPast) return `<span style="color:var(--white-dim);text-decoration:line-through;">${label}</span>`;
+    return `<span style="color:var(--white-dim);">${label}</span>`;
+  }).join('<br>');
+}
+
 // ── Toggle Received ──
 async function toggleReceived(rowIndex) {
   if (!APPS_SCRIPT_URL) { showToast('Apps Script URL not configured', true); return; }
@@ -411,9 +441,10 @@ async function toggleVoucher(rowIndex) {
 // ── Render: Sponsors ──
 function renderSponsors(data) {
   const tb = document.getElementById('sponsorsBody');
-  if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="9"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
   tb.innerHTML = data.map((s, i) => {
     const st = getStatus(s['Contract End']); const id = `sp-${i}`; const open = expandedRows.has(id);
+    const renewals = getRenewalDates(s['Contract Start'], s['Contract End']);
     return `<tr>
       <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
       <td class="name-cell">${esc(s.Name)}</td>
@@ -423,8 +454,9 @@ function renderSponsors(data) {
       <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
       <td>${s['Discount Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code'])}')">${esc(s['Discount Code'])}</span>` : ''}</td>
       <td>${esc(s['Referral Discount %'])}</td>
+      <td style="font-size:12px;line-height:1.8;">${renewals}</td>
     </tr>
-    <tr class="detail-row"><td colspan="8"><div class="detail-content ${open?'open':''}" id="detail-${id}">
+    <tr class="detail-row"><td colspan="9"><div class="detail-content ${open?'open':''}" id="detail-${id}">
       <div class="detail-grid">
         <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(s['Contract Start'])}</div></div>
         <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(s['Contract End'])}</div></div>
