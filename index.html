@@ -4,148 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>reSTART | Partners & Athletes Dashboard</title>
+<title>reSTART | Marketing Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --teal: #2CA4AD;
-    --teal-dim: rgba(44,164,173,0.15);
-    --yellow: #FDC317;
-    --yellow-dim: rgba(253,195,23,0.15);
-    --dark: #293334;
-    --dark-card: #1E2A2B;
-    --dark-surface: #223031;
-    --dark-border: #3A4C4D;
-    --white: #F0F4F4;
-    --white-dim: rgba(240,244,244,0.6);
-    --red: #E74C4C;
-    --red-dim: rgba(231,76,76,0.15);
-    --green: #34C759;
-    --green-dim: rgba(52,199,89,0.15);
-    --orange: #F5A623;
-    --orange-dim: rgba(245,166,35,0.15);
-    --purple: #9B59B6;
-    --purple-dim: rgba(155,89,182,0.15);
+    --teal: #2CA4AD; --teal-dim: rgba(44,164,173,0.15);
+    --yellow: #FDC317; --yellow-dim: rgba(253,195,23,0.15);
+    --dark: #293334; --dark-card: #1E2A2B; --dark-surface: #223031; --dark-border: #3A4C4D;
+    --white: #F0F4F4; --white-dim: rgba(240,244,244,0.6);
+    --red: #E74C4C; --red-dim: rgba(231,76,76,0.15);
+    --green: #34C759; --green-dim: rgba(52,199,89,0.15);
+    --orange: #F5A623; --orange-dim: rgba(245,166,35,0.15);
+    --purple: #9B59B6; --purple-dim: rgba(155,89,182,0.15);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--dark); color: var(--white); min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-  .header {
-    background: var(--dark-card); border-bottom: 1px solid var(--dark-border);
-    padding: 20px 32px; display: flex; align-items: center;
-    justify-content: space-between; flex-wrap: wrap; gap: 16px;
-  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--dark); color: var(--white); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .header { background: var(--dark-card); border-bottom: 1px solid var(--dark-border); padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
   .header-left { display: flex; align-items: center; gap: 16px; }
-  .logo-mark {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: linear-gradient(135deg, var(--teal), var(--yellow));
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 20px; color: var(--dark);
-  }
+  .logo-mark { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--teal), var(--yellow)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 20px; color: var(--dark); }
   .header-title h1 { font-size: 18px; font-weight: 700; letter-spacing: 1.5px; }
   .header-title h1 span { color: var(--teal); }
   .header-title p { font-size: 12px; color: var(--white-dim); letter-spacing: 0.5px; margin-top: 2px; }
   .header-right { display: flex; align-items: center; gap: 12px; }
   .last-updated { font-size: 11px; color: var(--white-dim); }
-  .refresh-btn {
-    background: var(--teal-dim); border: 1px solid var(--teal); color: var(--teal);
-    padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: all 0.2s;
-  }
+  .refresh-btn { background: var(--teal-dim); border: 1px solid var(--teal); color: var(--teal); padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
   .refresh-btn:hover { background: var(--teal); color: var(--dark); }
-  .stats-bar {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px; padding: 20px 32px;
-  }
-  .stat-card {
-    background: var(--dark-card); border: 1px solid var(--dark-border);
-    border-radius: 12px; padding: 16px 20px;
-  }
+  .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 12px; padding: 20px 32px; }
+  .stat-card { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 12px; padding: 16px 20px; }
   .stat-card .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--white-dim); margin-bottom: 6px; }
   .stat-card .value { font-size: 26px; font-weight: 700; color: var(--teal); }
   .stat-card .value.yellow { color: var(--yellow); }
   .stat-card .value.red { color: var(--red); }
   .stat-card .value.green { color: var(--green); }
   .stat-card .value.purple { color: var(--purple); }
+  .stat-card .value.orange { color: var(--orange); }
   .main-content { padding: 0 32px 40px; }
-  .tabs-wrapper {
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 16px; margin-bottom: 20px;
-  }
-  .tabs {
-    display: flex; gap: 4px; background: var(--dark-card);
-    border-radius: 12px; padding: 4px; border: 1px solid var(--dark-border); flex-wrap: wrap;
-  }
-  .tab {
-    padding: 10px 20px; border-radius: 9px; font-size: 13px; font-weight: 600;
-    cursor: pointer; transition: all 0.2s; color: var(--white-dim);
-    border: none; background: transparent; white-space: nowrap;
-  }
+  .tabs-wrapper { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
+  .tabs { display: flex; gap: 4px; background: var(--dark-card); border-radius: 12px; padding: 4px; border: 1px solid var(--dark-border); flex-wrap: wrap; }
+  .tab { padding: 10px 20px; border-radius: 9px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--white-dim); border: none; background: transparent; white-space: nowrap; }
   .tab.active { background: var(--teal); color: var(--dark); }
   .tab:not(.active):hover { color: var(--white); background: var(--dark-surface); }
   .search-box { position: relative; }
-  .search-box input {
-    background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 10px;
-    padding: 10px 16px 10px 40px; color: var(--white); font-size: 14px; width: 260px;
-    outline: none; transition: border-color 0.2s;
-  }
+  .search-box input { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 10px; padding: 10px 16px 10px 40px; color: var(--white); font-size: 14px; width: 260px; outline: none; transition: border-color 0.2s; }
   .search-box input:focus { border-color: var(--teal); }
   .search-box input::placeholder { color: var(--white-dim); }
   .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--white-dim); }
-  .table-container {
-    background: var(--dark-card); border: 1px solid var(--dark-border);
-    border-radius: 14px; overflow: hidden;
-  }
+  .table-container { background: var(--dark-card); border: 1px solid var(--dark-border); border-radius: 14px; overflow: hidden; }
   .table-scroll { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; }
-  thead th {
-    background: var(--dark-surface); padding: 14px 16px; text-align: left;
-    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px;
-    color: var(--white-dim); border-bottom: 1px solid var(--dark-border);
-    white-space: nowrap; position: sticky; top: 0;
-  }
-  tbody td {
-    padding: 14px 16px; font-size: 14px;
-    border-bottom: 1px solid rgba(58,76,77,0.5); vertical-align: middle;
-  }
+  thead th { background: var(--dark-surface); padding: 14px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--white-dim); border-bottom: 1px solid var(--dark-border); white-space: nowrap; position: sticky; top: 0; }
+  tbody td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid rgba(58,76,77,0.5); vertical-align: middle; }
   tbody tr:last-child td { border-bottom: none; }
   tbody tr { transition: background 0.15s; }
   tbody tr:hover { background: var(--dark-surface); }
   .name-cell { font-weight: 600; color: var(--white); }
   .notes-cell { font-size: 13px; color: var(--white-dim); max-width: 250px; }
-  .badge {
-    display: inline-block; padding: 4px 10px; border-radius: 6px;
-    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
-  }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
   .badge.teal { background: var(--teal-dim); color: var(--teal); }
   .badge.yellow { background: var(--yellow-dim); color: var(--yellow); }
   .badge.purple { background: var(--purple-dim); color: var(--purple); }
-  .code-cell {
-    font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px;
-    background: var(--dark-surface); padding: 5px 10px; border-radius: 6px;
-    display: inline-block; color: var(--yellow); letter-spacing: 0.5px;
-    cursor: pointer; border: 1px solid transparent; transition: all 0.2s;
-  }
+  .code-cell { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; background: var(--dark-surface); padding: 5px 10px; border-radius: 6px; display: inline-block; color: var(--yellow); letter-spacing: 0.5px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
   .code-cell:hover { border-color: var(--yellow); }
   .code-cell.copied { border-color: var(--green); color: var(--green); }
-  .status {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;
-  }
+  .status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
   .status.active { background: var(--green-dim); color: var(--green); }
   .status.expiring { background: var(--orange-dim); color: var(--orange); }
   .status.expired { background: var(--red-dim); color: var(--red); }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .status.active .status-dot { animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .expand-btn {
-    background: none; border: none; color: var(--white-dim); cursor: pointer;
-    padding: 4px; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center;
-  }
+  .expand-btn { background: none; border: none; color: var(--white-dim); cursor: pointer; padding: 4px; border-radius: 4px; transition: all 0.2s; display: flex; align-items: center; }
   .expand-btn:hover { color: var(--teal); }
   .detail-row td { padding: 0 16px; }
   .detail-content { overflow: hidden; max-height: 0; transition: max-height 0.3s ease, padding 0.3s ease; }
@@ -154,65 +83,61 @@
   .detail-item .d-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--white-dim); margin-bottom: 4px; font-weight: 600; }
   .detail-item .d-value { font-size: 13px; color: var(--white); }
   .toggle-wrap { display: flex; align-items: center; gap: 8px; }
-  .toggle {
-    position: relative; width: 44px; height: 24px; cursor: pointer;
-    -webkit-appearance: none; appearance: none; outline: none;
-    background: var(--dark-border); border-radius: 12px; border: none;
-    transition: background 0.3s;
-  }
+  .toggle { position: relative; width: 44px; height: 24px; cursor: pointer; -webkit-appearance: none; appearance: none; outline: none; background: var(--dark-border); border-radius: 12px; border: none; transition: background 0.3s; }
   .toggle:checked { background: var(--green); }
-  .toggle::before {
-    content: ''; position: absolute; top: 3px; left: 3px;
-    width: 18px; height: 18px; border-radius: 50%; background: var(--white);
-    transition: transform 0.3s;
-  }
+  .toggle::before { content: ''; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--white); transition: transform 0.3s; }
   .toggle:checked::before { transform: translateX(20px); }
   .toggle:disabled { opacity: 0.5; cursor: not-allowed; }
   .toggle-label { font-size: 12px; font-weight: 600; }
   .toggle-label.redeemed { color: var(--green); }
   .toggle-label.not-redeemed { color: var(--white-dim); }
   .voucher-redeemed td { opacity: 0.45; }
-  .section-header {
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 12px; padding: 16px 16px 0;
-  }
+  .section-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 16px 16px 0; }
   .section-header h2 { font-size: 16px; font-weight: 700; }
   .voucher-filter-tabs { display: flex; gap: 4px; }
-  .voucher-filter {
-    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
-    cursor: pointer; border: 1px solid var(--dark-border); background: transparent;
-    color: var(--white-dim); transition: all 0.2s;
-  }
+  .voucher-filter { padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid var(--dark-border); background: transparent; color: var(--white-dim); transition: all 0.2s; }
   .voucher-filter.active { border-color: var(--teal); color: var(--teal); background: var(--teal-dim); }
-  .info-note {
-    margin-top: 16px; background: var(--dark-surface); border: 1px solid var(--dark-border);
-    border-radius: 10px; padding: 16px 20px; font-size: 13px; color: var(--white-dim); line-height: 1.7;
-  }
+  .info-note { margin-top: 16px; background: var(--dark-surface); border: 1px solid var(--dark-border); border-radius: 10px; padding: 16px 20px; font-size: 13px; color: var(--white-dim); line-height: 1.7; }
   .info-note strong { color: var(--yellow); font-weight: 600; }
-  .config-banner {
-    background: var(--yellow-dim); border: 1px solid var(--yellow); border-radius: 12px;
-    padding: 20px 24px; margin: 20px 32px; display: flex; align-items: flex-start; gap: 14px;
-  }
+  .config-banner { background: var(--yellow-dim); border: 1px solid var(--yellow); border-radius: 12px; padding: 20px 24px; margin: 20px 32px; display: flex; align-items: flex-start; gap: 14px; }
   .config-banner svg { flex-shrink: 0; color: var(--yellow); margin-top: 2px; }
   .config-banner h3 { font-size: 14px; font-weight: 700; color: var(--yellow); margin-bottom: 6px; }
   .config-banner p { font-size: 13px; color: var(--white-dim); line-height: 1.6; }
   .config-banner code { background: var(--dark); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--teal); }
   .empty-state { text-align: center; padding: 60px 20px; color: var(--white-dim); }
-  .toast {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    background: var(--dark-card); border: 1px solid var(--green); color: var(--green);
-    padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 600;
-    opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000;
-  }
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--dark-card); border: 1px solid var(--green); color: var(--green); padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
   .toast.error { border-color: var(--red); color: var(--red); }
   .toast.show { opacity: 1; }
+  /* Renewal badge */
+  .renewal-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin: 2px 0; }
+  .renewal-badge.current { background: var(--green-dim); color: var(--green); }
+  .renewal-badge.next { background: var(--yellow-dim); color: var(--yellow); }
+  .renewal-badge.past { color: var(--white-dim); font-weight: 400; }
+  /* Voucher groups */
+  .voucher-group { border-bottom: 2px solid var(--dark-border); }
+  .voucher-group:last-child { border-bottom: none; }
+  .voucher-group-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; transition: background 0.15s; }
+  .voucher-group-header:hover { background: var(--dark-surface); }
+  .voucher-group-name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 10px; }
+  .voucher-group-stats { display: flex; gap: 8px; align-items: center; }
+  .voucher-count-badge { padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600; }
+  .voucher-count-badge.pending { background: var(--yellow-dim); color: var(--yellow); }
+  .voucher-count-badge.done { background: var(--green-dim); color: var(--green); }
+  .voucher-count-badge.total { background: var(--dark-surface); color: var(--white-dim); }
+  .voucher-group-items { overflow: hidden; transition: max-height 0.3s ease; }
+  .voucher-group-items.collapsed { max-height: 0; }
+  .voucher-group-items.expanded { max-height: 2000px; }
+  .voucher-item { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; padding: 10px 16px 10px 32px; align-items: center; border-top: 1px solid rgba(58,76,77,0.3); font-size: 13px; }
+  .voucher-item:hover { background: var(--dark-surface); }
+  .voucher-item.v-redeemed { opacity: 0.4; }
   @media (max-width: 768px) {
     .header, .stats-bar, .main-content, .config-banner { padding-left: 16px; padding-right: 16px; }
     .config-banner { margin-left: 16px; margin-right: 16px; }
     .search-box input { width: 100%; }
     .tabs-wrapper { flex-direction: column; align-items: stretch; }
-    table { min-width: 700px; }
+    table { min-width: 600px; }
     .stat-card .value { font-size: 22px; }
+    .voucher-item { grid-template-columns: 1fr 1fr; gap: 6px; }
   }
 </style>
 </head>
@@ -220,7 +145,7 @@
 <header class="header">
   <div class="header-left">
     <div class="logo-mark">R</div>
-    <div class="header-title"><h1>re<span>START</span></h1><p>Partners & Athletes Dashboard</p></div>
+    <div class="header-title"><h1>re<span>START</span></h1><p>Marketing Dashboard</p></div>
   </div>
   <div class="header-right">
     <span class="last-updated" id="lastUpdated"></span>
@@ -229,14 +154,15 @@
 </header>
 <div class="config-banner" id="configBanner" style="display:none">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  <div><h3>Google Sheet not connected</h3><p>Open this file, find <code>const SHEET_ID = ''</code> near the top of the script, and paste your published Google Sheet ID.</p></div>
+  <div><h3>Google Sheet not connected</h3><p>Open this file, find <code>const SHEET_ID = ''</code> and paste your published Google Sheet ID.</p></div>
 </div>
 <div class="stats-bar">
   <div class="stat-card"><div class="label">Sponsors</div><div class="value" id="statSponsors">0</div></div>
   <div class="stat-card"><div class="label">Partners</div><div class="value yellow" id="statPartners">0</div></div>
   <div class="stat-card"><div class="label">Active Contracts</div><div class="value green" id="statActive">0</div></div>
-  <div class="stat-card"><div class="label">Expiring (30 days)</div><div class="value red" id="statExpiring">0</div></div>
-  <div class="stat-card"><div class="label">Unredeemed Vouchers</div><div class="value yellow" id="statVouchers">0</div></div>
+  <div class="stat-card"><div class="label">Expiring (30d)</div><div class="value red" id="statExpiring">0</div></div>
+  <div class="stat-card"><div class="label">Unredeemed</div><div class="value yellow" id="statVouchers">0</div></div>
+  <div class="stat-card"><div class="label">Vouchers Expiring</div><div class="value orange" id="statVouchersExpiring">0</div></div>
   <div class="stat-card"><div class="label">Special Cases</div><div class="value purple" id="statSpecial">0</div></div>
 </div>
 <div class="main-content">
@@ -252,19 +178,25 @@
       <input type="text" id="searchInput" placeholder="Search name, code..." oninput="filterTable()">
     </div>
   </div>
+
+  <!-- SPONSORS -->
   <div id="sponsorsPanel" class="table-container">
     <div class="table-scroll"><table>
-      <thead><tr><th style="width:30px"></th><th>Name</th><th>Sport / Profession</th><th>Membership</th><th>Contract Period</th><th>Status</th><th>Discount Code</th><th>Referral Discount</th><th>Membership Renewals</th></tr></thead>
+      <thead><tr><th style="width:30px"></th><th>Name</th><th>Sport</th><th>Membership</th><th>Contract</th><th>Status</th><th>Code</th><th>Renewal</th></tr></thead>
       <tbody id="sponsorsBody"></tbody>
     </table></div>
-    <div class="info-note"><strong>Membership Renewals:</strong> Memberships renew every 2 months based on contract start date. Services do not carry over between renewal periods. At the start of each new 2 month period, the allocation resets.</div>
+    <div class="info-note"><strong>Membership Renewals:</strong> Memberships renew every 2 months based on contract start date. Services do not carry over between renewal periods.</div>
   </div>
+
+  <!-- PARTNERS -->
   <div id="partnersPanel" class="table-container" style="display:none">
     <div class="table-scroll"><table>
       <thead><tr><th style="width:30px"></th><th>Partner Name</th><th>Category</th><th>Contract Period</th><th>Status</th><th>Referral Code</th><th>Discount</th><th>Notes</th></tr></thead>
       <tbody id="partnersBody"></tbody>
     </table></div>
   </div>
+
+  <!-- VOUCHERS -->
   <div id="vouchersPanel" class="table-container" style="display:none">
     <div class="section-header">
       <h2>Service Vouchers</h2>
@@ -274,15 +206,14 @@
         <button class="voucher-filter" data-vf="redeemed" onclick="filterVouchers('redeemed')">Redeemed</button>
       </div>
     </div>
-    <div class="table-scroll"><table>
-      <thead><tr><th>Issued To</th><th>Service</th><th>Voucher Code</th><th>Expiry Date</th><th>Received</th><th>Redeemed</th></tr></thead>
-      <tbody id="vouchersBody"></tbody>
-    </table></div>
+    <div id="vouchersGroupContainer" style="padding:8px 0;"></div>
     <div class="info-note">
       <strong>Note 1:</strong> All vouchers are valid for one year from issue date. Always check the expiry date before processing a redemption.<br>
       <strong>Note 2:</strong> Physical vouchers have no code. If someone comes without the physical voucher, they cannot redeem. Digital vouchers all have a unique code.
     </div>
   </div>
+
+  <!-- SPECIAL -->
   <div id="specialPanel" class="table-container" style="display:none">
     <div class="table-scroll"><table>
       <thead><tr><th>Name</th><th>Case Details</th><th>Discount Code</th></tr></thead>
@@ -291,6 +222,7 @@
   </div>
 </div>
 <div class="toast" id="toast"></div>
+
 <script>
 const SHEET_ID = '1lmLeGOyMf_cUxv1vBwGPuupJ3pMvsYlV_eujiz_au3U';
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyccr5ZWu3uR2Kob3of8_nmqfu2On7XGDrpcGJUeeIhYq3KIIvZsFZy981kbP50hNz3/exec';
@@ -299,152 +231,85 @@ const TAB_PARTNERS = 'Partners';
 const TAB_VOUCHERS = 'Vouchers';
 const TAB_SPECIAL  = 'Special Cases';
 
-let allSponsors = [], allPartners = [], allVouchers = [], allSpecial = [];
-let currentTab = 'sponsors';
-let voucherFilter = 'all';
+let allSponsors=[], allPartners=[], allVouchers=[], allSpecial=[];
+let currentTab='sponsors', voucherFilter='all';
 let expandedRows = new Set();
+let expandedGroups = new Set();
 
-async function fetchSheetCSV(tabName) {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(tabName)}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch ${tabName}`);
-  return parseCSV(await res.text());
-}
-function parseCSV(text) {
-  const lines = []; let cur = '', inQ = false;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (ch === '"') { inQ = !inQ; cur += ch; }
-    else if (ch === '\n' && !inQ) { lines.push(cur); cur = ''; }
-    else { cur += ch; }
-  }
-  if (cur) lines.push(cur);
-  const headers = splitCSV(lines[0]).map(h => h.trim());
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    if (!lines[i].trim()) continue;
-    const vals = splitCSV(lines[i]);
-    const obj = {};
-    headers.forEach((h, idx) => { obj[h] = (vals[idx] || '').trim(); });
-    if (obj[headers[0]]) rows.push(obj);
-  }
-  return rows;
-}
-function splitCSV(line) {
-  const r = []; let cur = '', inQ = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else { inQ = !inQ; } }
-    else if (ch === ',' && !inQ) { r.push(cur); cur = ''; }
-    else { cur += ch; }
-  }
-  r.push(cur); return r;
-}
-function getStatus(endDate) {
-  if (!endDate || endDate === '-') return { label: 'Unknown', cls: 'expired' };
-  const end = new Date(endDate); const now = new Date();
-  const days = Math.ceil((end - now) / 86400000);
-  if (days < 0) return { label: 'Expired', cls: 'expired' };
-  if (days <= 30) return { label: `${days}d left`, cls: 'expiring' };
-  return { label: 'Active', cls: 'active' };
-}
-function fmtDate(d) {
-  if (!d || d === '-') return '';
-  const dt = new Date(d); if (isNaN(dt)) return d;
-  return dt.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-}
-function esc(s) {
-  if (!s) return '';
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-function showToast(msg, isError) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (isError ? ' error' : '');
-  setTimeout(() => { t.className = 'toast'; }, 2500);
-}
+// ── CSV ──
+async function fetchSheetCSV(t){const u=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(t)}`;const r=await fetch(u);if(!r.ok)throw new Error(`Failed ${t}`);return parseCSV(await r.text())}
+function parseCSV(t){const l=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){q=!q;c+=ch}else if(ch==='\n'&&!q){l.push(c);c=''}else{c+=ch}}if(c)l.push(c);const h=splitCSV(l[0]).map(x=>x.trim());const rows=[];for(let i=1;i<l.length;i++){if(!l[i].trim())continue;const v=splitCSV(l[i]);const o={};h.forEach((hh,idx)=>{o[hh]=(v[idx]||'').trim()});if(o[h[0]])rows.push(o)}return rows}
+function splitCSV(l){const r=[];let c='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){c+='"';i++}else{q=!q}}else if(ch===','&&!q){r.push(c);c=''}else{c+=ch}}r.push(c);return r}
 
-// ── Membership Renewal Calculator ──
-function getRenewalDates(startDate, endDate) {
+// ── Helpers ──
+function getStatus(e){if(!e||e==='-')return{label:'Unknown',cls:'expired'};const end=new Date(e),now=new Date(),d=Math.ceil((end-now)/864e5);if(d<0)return{label:'Expired',cls:'expired'};if(d<=30)return{label:`${d}d left`,cls:'expiring'};return{label:'Active',cls:'active'}}
+function fmtDate(d){if(!d||d==='-')return'';const dt=new Date(d);if(isNaN(dt))return d;return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function showToast(m,e){const t=document.getElementById('toast');t.textContent=m;t.className='toast show'+(e?' error':'');setTimeout(()=>{t.className='toast'},2500)}
+
+// ── Renewal: only current + next ──
+function getRenewalInfo(startDate, endDate) {
   if (!startDate || !endDate) return '';
-  const start = new Date(startDate);
-  const end = new Date(endDate);
+  const start = new Date(startDate), end = new Date(endDate), now = new Date();
   if (isNaN(start) || isNaN(end)) return '';
-  const now = new Date();
-  const renewals = [];
   let current = new Date(start);
-  // First period starts at contract start, then every 2 months
+  let currentPeriod = null, nextPeriod = null;
   while (current < end) {
-    renewals.push(new Date(current));
-    current.setMonth(current.getMonth() + 2);
-  }
-  // Format renewals with highlighting for next upcoming
-  let foundNext = false;
-  return renewals.map((d, i) => {
-    const label = d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
-    const periodEnd = new Date(d);
+    const periodStart = new Date(current);
+    const periodEnd = new Date(current);
     periodEnd.setMonth(periodEnd.getMonth() + 2);
     if (periodEnd > end) periodEnd.setTime(end.getTime());
-    const isActive = now >= d && now < periodEnd;
-    const isPast = now >= periodEnd;
-    const isNext = !foundNext && !isPast && !isActive && d > now;
-    if (isNext) foundNext = true;
-    if (isActive) return `<span style="color:var(--green);font-weight:600;">&#9654; ${label} (Current)</span>`;
-    if (isNext) return `<span style="color:var(--yellow);font-weight:600;">&#9658; ${label} (Next)</span>`;
-    if (isPast) return `<span style="color:var(--white-dim);text-decoration:line-through;">${label}</span>`;
-    return `<span style="color:var(--white-dim);">${label}</span>`;
-  }).join('<br>');
+    if (now >= periodStart && now < periodEnd) {
+      currentPeriod = { start: periodStart, end: periodEnd };
+    } else if (!nextPeriod && periodStart > now) {
+      nextPeriod = { start: periodStart, end: periodEnd };
+    }
+    current.setMonth(current.getMonth() + 2);
+  }
+  let html = '';
+  if (currentPeriod) {
+    html += `<span class="renewal-badge current">Current: ${fmtDate(currentPeriod.start.toISOString())} &rarr; ${fmtDate(currentPeriod.end.toISOString())}</span>`;
+  }
+  if (nextPeriod) {
+    html += `<br><span class="renewal-badge next">Next: ${fmtDate(nextPeriod.start.toISOString())}</span>`;
+  }
+  if (!currentPeriod && !nextPeriod) {
+    html = '<span class="renewal-badge past">Contract ended</span>';
+  }
+  return html;
 }
 
 // ── Toggle Received ──
 async function toggleReceived(rowIndex) {
   if (!APPS_SCRIPT_URL) { showToast('Apps Script URL not configured', true); return; }
-  const toggleEl = document.getElementById('received-' + rowIndex);
-  if (toggleEl) toggleEl.disabled = true;
+  const el = document.getElementById('received-'+rowIndex);
+  if (el) el.disabled = true;
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'updateReceived', row: rowIndex + 2, status: 'Yes' })
-    });
-    allVouchers[rowIndex]['Received'] = 'Yes';
-    updateStats(); filterTable();
+    await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify({action:'updateReceived',row:rowIndex+2,status:'Yes'}) });
+    allVouchers[rowIndex]['Received']='Yes'; updateStats(); filterTable();
     showToast('Marked as Received');
-  } catch (err) {
-    console.error(err);
-    showToast('Failed to update. Try again.', true);
-    filterTable();
-  }
+  } catch(e) { console.error(e); showToast('Failed to update',true); filterTable(); }
 }
 
 // ── Toggle Redeemed ──
 async function toggleVoucher(rowIndex) {
   if (!APPS_SCRIPT_URL) { showToast('Apps Script URL not configured', true); return; }
-  const toggleEl = document.getElementById('toggle-' + rowIndex);
-  if (toggleEl) toggleEl.disabled = true;
+  const el = document.getElementById('toggle-'+rowIndex);
+  if (el) el.disabled = true;
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method: 'POST', mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify({ action: 'updateVoucher', row: rowIndex + 2, status: 'Yes' })
-    });
-    allVouchers[rowIndex]['Redeemed'] = 'Yes';
-    updateStats(); filterTable();
+    await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body:JSON.stringify({action:'updateVoucher',row:rowIndex+2,status:'Yes'}) });
+    allVouchers[rowIndex]['Redeemed']='Yes'; updateStats(); filterTable();
     showToast('Marked as Redeemed');
-  } catch (err) {
-    console.error(err);
-    showToast('Failed to update. Try again.', true);
-    filterTable();
-  }
+  } catch(e) { console.error(e); showToast('Failed to update',true); filterTable(); }
 }
 
-// ── Render: Sponsors ──
+// ── Render: Sponsors (slimmed: 8 cols, referral moved to detail) ──
 function renderSponsors(data) {
   const tb = document.getElementById('sponsorsBody');
-  if (!data.length) { tb.innerHTML = '<tr><td colspan="9"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
+  if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
   tb.innerHTML = data.map((s, i) => {
     const st = getStatus(s['Contract End']); const id = `sp-${i}`; const open = expandedRows.has(id);
-    const renewals = getRenewalDates(s['Contract Start'], s['Contract End']);
+    const renewal = getRenewalInfo(s['Contract Start'], s['Contract End']);
     return `<tr>
       <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
       <td class="name-cell">${esc(s.Name)}</td>
@@ -452,15 +317,15 @@ function renderSponsors(data) {
       <td><span class="badge teal">${esc(s.Membership)}</span></td>
       <td>${fmtDate(s['Contract Start'])} &rarr; ${fmtDate(s['Contract End'])}</td>
       <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
-      <td>${s['Discount Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code'])}')">${esc(s['Discount Code'])}</span>` : ''}</td>
-      <td>${esc(s['Referral Discount %'])}</td>
-      <td style="font-size:12px;line-height:1.8;">${renewals}</td>
+      <td>${s['Discount Code']?`<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code'])}')">${esc(s['Discount Code'])}</span>`:''}</td>
+      <td style="font-size:12px;line-height:1.6;">${renewal}</td>
     </tr>
-    <tr class="detail-row"><td colspan="9"><div class="detail-content ${open?'open':''}" id="detail-${id}">
+    <tr class="detail-row"><td colspan="8"><div class="detail-content ${open?'open':''}" id="detail-${id}">
       <div class="detail-grid">
+        <div class="detail-item"><div class="d-label">Referral Discount</div><div class="d-value">${esc(s['Referral Discount %']) || 'None'}</div></div>
         <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(s['Contract Start'])}</div></div>
         <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(s['Contract End'])}</div></div>
-        <div class="detail-item"><div class="d-label">Notes</div><div class="d-value">${esc(s.Notes) || 'No notes'}</div></div>
+        <div class="detail-item"><div class="d-label">Notes</div><div class="d-value">${esc(s.Notes)||'No notes'}</div></div>
       </div>
     </div></td></tr>`;
   }).join('');
@@ -478,136 +343,174 @@ function renderPartners(data) {
       <td><span class="badge yellow">${esc(p.Category)}</span></td>
       <td>${fmtDate(p['Contract Start'])} &rarr; ${fmtDate(p['Contract End'])}</td>
       <td><span class="status ${st.cls}"><span class="status-dot"></span>${st.label}</span></td>
-      <td>${p['Referral Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(p['Referral Code'])}')">${esc(p['Referral Code'])}</span>` : ''}</td>
+      <td>${p['Referral Code']?`<span class="code-cell" onclick="copyCode(this,'${esc(p['Referral Code'])}')">${esc(p['Referral Code'])}</span>`:''}</td>
       <td>${esc(p['Discount %'])}</td>
-      <td class="notes-cell">${esc(p.Notes) || ''}</td>
+      <td class="notes-cell">${esc(p.Notes)||''}</td>
     </tr>
     <tr class="detail-row"><td colspan="8"><div class="detail-content ${open?'open':''}" id="detail-${id}">
       <div class="detail-grid">
         <div class="detail-item"><div class="d-label">Contract Start</div><div class="d-value">${fmtDate(p['Contract Start'])}</div></div>
         <div class="detail-item"><div class="d-label">Contract End</div><div class="d-value">${fmtDate(p['Contract End'])}</div></div>
-        <div class="detail-item"><div class="d-label">Full Notes</div><div class="d-value">${esc(p.Notes) || 'No notes'}</div></div>
+        <div class="detail-item"><div class="d-label">Full Notes</div><div class="d-value">${esc(p.Notes)||'No notes'}</div></div>
       </div>
     </div></td></tr>`;
   }).join('');
 }
 
-// ── Render: Vouchers ──
+// ── Render: Vouchers (grouped by Issued To) ──
 function renderVouchers(data) {
-  const tb = document.getElementById('vouchersBody');
+  const container = document.getElementById('vouchersGroupContainer');
   let filtered = data;
-  if (voucherFilter === 'unredeemed') filtered = data.filter(v => (v.Redeemed || '').toLowerCase() !== 'yes');
-  if (voucherFilter === 'redeemed') filtered = data.filter(v => (v.Redeemed || '').toLowerCase() === 'yes');
-  if (!filtered.length) { tb.innerHTML = '<tr><td colspan="6"><div class="empty-state"><p>No vouchers found</p></div></td></tr>'; return; }
-  tb.innerHTML = filtered.map(v => {
-    const redeemed = (v.Redeemed || '').toLowerCase() === 'yes';
-    const received = (v.Received || '').toLowerCase() === 'yes';
-    const origIdx = allVouchers.indexOf(v);
-    const codeDisplay = v.Code && v.Code !== 'N/A'
-      ? `<span class="code-cell" onclick="copyCode(this,'${esc(v.Code)}')">${esc(v.Code)}</span>`
-      : '<span style="color:var(--white-dim);font-size:12px">Physical</span>';
-    return `<tr class="${redeemed ? 'voucher-redeemed' : ''}">
-      <td class="name-cell">${esc(v['Issued To'])}</td>
-      <td>${esc(v.Service)}</td>
-      <td>${codeDisplay}</td>
-      <td>${fmtDate(v['Expiry Date'])}</td>
-      <td><div class="toggle-wrap">
-        <input type="checkbox" class="toggle" id="received-${origIdx}" ${received ? 'checked disabled' : ''} ${received ? '' : `onchange="toggleReceived(${origIdx})"`}>
-        <span class="toggle-label ${received ? 'redeemed' : 'not-redeemed'}">${received ? 'Received' : 'Not Received'}</span>
-      </div></td>
-      <td><div class="toggle-wrap">
-        <input type="checkbox" class="toggle" id="toggle-${origIdx}" ${redeemed ? 'checked disabled' : ''} ${redeemed ? '' : `onchange="toggleVoucher(${origIdx})"`}>
-        <span class="toggle-label ${redeemed ? 'redeemed' : 'not-redeemed'}">${redeemed ? 'Redeemed' : 'Not Redeemed'}</span>
-      </div></td>
-    </tr>`;
+  if (voucherFilter === 'unredeemed') filtered = data.filter(v => (v.Redeemed||'').toLowerCase() !== 'yes');
+  if (voucherFilter === 'redeemed') filtered = data.filter(v => (v.Redeemed||'').toLowerCase() === 'yes');
+  if (!filtered.length) { container.innerHTML = '<div class="empty-state"><p>No vouchers found</p></div>'; return; }
+
+  // Group by Issued To
+  const groups = {};
+  filtered.forEach(v => {
+    const key = v['Issued To'] || 'Unknown';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(v);
+  });
+
+  container.innerHTML = Object.keys(groups).map(groupName => {
+    const items = groups[groupName];
+    const pending = items.filter(v => (v.Redeemed||'').toLowerCase() !== 'yes').length;
+    const redeemed = items.filter(v => (v.Redeemed||'').toLowerCase() === 'yes').length;
+    const isOpen = expandedGroups.has(groupName);
+
+    const itemsHtml = items.map(v => {
+      const isRedeemed = (v.Redeemed||'').toLowerCase() === 'yes';
+      const isReceived = (v.Received||'').toLowerCase() === 'yes';
+      const origIdx = allVouchers.indexOf(v);
+      const codeDisplay = v.Code && v.Code !== 'N/A'
+        ? `<span class="code-cell" onclick="copyCode(this,'${esc(v.Code)}')">${esc(v.Code)}</span>`
+        : '<span style="color:var(--white-dim);font-size:12px">Physical</span>';
+
+      return `<div class="voucher-item ${isRedeemed ? 'v-redeemed' : ''}">
+        <div>${esc(v.Service)}</div>
+        <div>${codeDisplay}</div>
+        <div>${fmtDate(v['Expiry Date'])}</div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle" id="received-${origIdx}" ${isReceived?'checked disabled':''} ${isReceived?'':`onchange="toggleReceived(${origIdx})"`}>
+          <span class="toggle-label ${isReceived?'redeemed':'not-redeemed'}">${isReceived?'Received':'Not Received'}</span>
+        </div>
+        <div class="toggle-wrap">
+          <input type="checkbox" class="toggle" id="toggle-${origIdx}" ${isRedeemed?'checked disabled':''} ${isRedeemed?'':`onchange="toggleVoucher(${origIdx})"`}>
+          <span class="toggle-label ${isRedeemed?'redeemed':'not-redeemed'}">${isRedeemed?'Redeemed':'Not Redeemed'}</span>
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="voucher-group">
+      <div class="voucher-group-header" onclick="toggleGroup('${esc(groupName)}')">
+        <div class="voucher-group-name">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${isOpen?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg>
+          ${esc(groupName)}
+        </div>
+        <div class="voucher-group-stats">
+          ${pending > 0 ? `<span class="voucher-count-badge pending">${pending} pending</span>` : ''}
+          ${redeemed > 0 ? `<span class="voucher-count-badge done">${redeemed} redeemed</span>` : ''}
+          <span class="voucher-count-badge total">${items.length} total</span>
+        </div>
+      </div>
+      <div class="voucher-group-items ${isOpen ? 'expanded' : 'collapsed'}">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:6px 16px 6px 32px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--white-dim);">
+          <div>Service</div><div>Code</div><div>Expiry</div><div>Received</div><div>Redeemed</div>
+        </div>
+        ${itemsHtml}
+      </div>
+    </div>`;
   }).join('');
 }
 
-// ── Render: Special Cases ──
+// ── Render: Special ──
 function renderSpecial(data) {
   const tb = document.getElementById('specialBody');
   if (!data.length) { tb.innerHTML = '<tr><td colspan="3"><div class="empty-state"><p>No special cases</p></div></td></tr>'; return; }
   tb.innerHTML = data.map(s => `<tr>
     <td class="name-cell">${esc(s.Name)}</td>
     <td>${esc(s.Case)}</td>
-    <td>${s['Discount Code'] ? `<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code']).split(' ')[0]}')">${esc(s['Discount Code'])}</span>` : ''}</td>
+    <td>${s['Discount Code']?`<span class="code-cell" onclick="copyCode(this,'${esc(s['Discount Code']).split(' ')[0]}')">${esc(s['Discount Code'])}</span>`:''}</td>
   </tr>`).join('');
 }
 
+// ── Stats ──
 function updateStats() {
   document.getElementById('statSponsors').textContent = allSponsors.length;
   document.getElementById('statPartners').textContent = allPartners.length;
-  const all = [...allSponsors.map(s => s['Contract End']), ...allPartners.map(p => p['Contract End'])];
-  document.getElementById('statActive').textContent = all.filter(d => getStatus(d).cls === 'active').length;
-  document.getElementById('statExpiring').textContent = all.filter(d => getStatus(d).cls === 'expiring').length;
-  document.getElementById('statVouchers').textContent = allVouchers.filter(v => (v.Redeemed||'').toLowerCase() !== 'yes').length;
+  const all = [...allSponsors.map(s=>s['Contract End']), ...allPartners.map(p=>p['Contract End'])];
+  document.getElementById('statActive').textContent = all.filter(d=>getStatus(d).cls==='active').length;
+  document.getElementById('statExpiring').textContent = all.filter(d=>getStatus(d).cls==='expiring').length;
+  document.getElementById('statVouchers').textContent = allVouchers.filter(v=>(v.Redeemed||'').toLowerCase()!=='yes').length;
+  // Vouchers expiring within 30 days
+  const now = new Date();
+  const expiringVouchers = allVouchers.filter(v => {
+    if ((v.Redeemed||'').toLowerCase() === 'yes') return false;
+    const exp = new Date(v['Expiry Date']);
+    if (isNaN(exp)) return false;
+    const days = Math.ceil((exp - now) / 864e5);
+    return days >= 0 && days <= 30;
+  }).length;
+  document.getElementById('statVouchersExpiring').textContent = expiringVouchers;
   document.getElementById('statSpecial').textContent = allSpecial.length;
 }
+
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
-  ['sponsors','partners','vouchers','special'].forEach(p => {
-    document.getElementById(p + 'Panel').style.display = p === tab ? '' : 'none';
-  });
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  ['sponsors','partners','vouchers','special'].forEach(p=>{document.getElementById(p+'Panel').style.display=p===tab?'':'none'});
   filterTable();
 }
 function filterTable() {
   const q = document.getElementById('searchInput').value.toLowerCase();
-  if (currentTab === 'sponsors') renderSponsors(allSponsors.filter(s => (s.Name||'').toLowerCase().includes(q) || (s['Discount Code']||'').toLowerCase().includes(q) || (s['Sport/Profession']||'').toLowerCase().includes(q)));
-  else if (currentTab === 'partners') renderPartners(allPartners.filter(p => (p.Name||'').toLowerCase().includes(q) || (p['Referral Code']||'').toLowerCase().includes(q) || (p.Category||'').toLowerCase().includes(q)));
-  else if (currentTab === 'vouchers') renderVouchers(allVouchers.filter(v => (v['Issued To']||'').toLowerCase().includes(q) || (v.Service||'').toLowerCase().includes(q) || (v.Code||'').toLowerCase().includes(q)));
-  else renderSpecial(allSpecial.filter(s => (s.Name||'').toLowerCase().includes(q) || (s['Discount Code']||'').toLowerCase().includes(q)));
+  if (currentTab==='sponsors') renderSponsors(allSponsors.filter(s=>(s.Name||'').toLowerCase().includes(q)||(s['Discount Code']||'').toLowerCase().includes(q)||(s['Sport/Profession']||'').toLowerCase().includes(q)));
+  else if (currentTab==='partners') renderPartners(allPartners.filter(p=>(p.Name||'').toLowerCase().includes(q)||(p['Referral Code']||'').toLowerCase().includes(q)||(p.Category||'').toLowerCase().includes(q)));
+  else if (currentTab==='vouchers') renderVouchers(allVouchers.filter(v=>(v['Issued To']||'').toLowerCase().includes(q)||(v.Service||'').toLowerCase().includes(q)||(v.Code||'').toLowerCase().includes(q)));
+  else renderSpecial(allSpecial.filter(s=>(s.Name||'').toLowerCase().includes(q)||(s['Discount Code']||'').toLowerCase().includes(q)));
 }
 function filterVouchers(f) {
   voucherFilter = f;
-  document.querySelectorAll('.voucher-filter').forEach(b => b.classList.toggle('active', b.dataset.vf === f));
+  document.querySelectorAll('.voucher-filter').forEach(b=>b.classList.toggle('active',b.dataset.vf===f));
   filterTable();
 }
-function toggle(id) { expandedRows.has(id) ? expandedRows.delete(id) : expandedRows.add(id); filterTable(); }
+function toggle(id) { expandedRows.has(id)?expandedRows.delete(id):expandedRows.add(id); filterTable(); }
+function toggleGroup(name) { expandedGroups.has(name)?expandedGroups.delete(name):expandedGroups.add(name); filterTable(); }
 function copyCode(el, code) {
-  navigator.clipboard.writeText(code).then(() => {
-    el.classList.add('copied'); const orig = el.textContent; el.textContent = 'Copied';
-    setTimeout(() => { el.classList.remove('copied'); el.textContent = orig; }, 1500);
+  navigator.clipboard.writeText(code).then(()=>{
+    el.classList.add('copied');const o=el.textContent;el.textContent='Copied';
+    setTimeout(()=>{el.classList.remove('copied');el.textContent=o},1500);
   });
 }
 
 function loadDemoData() {
-  allSponsors = [
-    { 'Name':'Saeed Alqubaisi','Sport/Profession':'Jiu Jitsu','Contract Start':'2026-06-20','Contract End':'2026-12-20','Discount Code':'SA20','Referral Discount %':'20% (Only first Session)','Membership':'Champ','Notes':'Membership Renewals' },
+  allSponsors=[{Name:'Saeed Alqubaisi','Sport/Profession':'Jiu Jitsu','Contract Start':'2026-06-20','Contract End':'2026-12-20','Discount Code':'SA20','Referral Discount %':'20%',Membership:'Champ',Notes:'Renewals every 2 months'}];
+  allPartners=[{Name:'Muscle Up Fitness',Category:'Calisthenics','Contract Start':'2026-03-05','Contract End':'2027-03-05','Referral Code':'MUF20','Discount %':'20%',Notes:'Cross referral'}];
+  allVouchers=[
+    {'Issued To':'Muscle Up',Service:'1 Hour Sports Massage','Expiry Date':'2026-12-31',Code:'MU012026',Received:'No',Redeemed:'No'},
+    {'Issued To':'Muscle Up',Service:'1 Hour Sports Massage','Expiry Date':'2026-12-31',Code:'MU022026',Received:'Yes',Redeemed:'Yes'},
+    {'Issued To':'Platform Studio',Service:'1 Session (Any)',Expiry Date:'2026-12-31',Code:'PS-012026',Received:'No',Redeemed:'No'},
   ];
-  allPartners = [
-    { 'Name':'Muscle Up Fitness','Category':'Calisthenics','Contract Start':'2026-03-05','Contract End':'2027-03-05','Referral Code':'MUF20','Discount %':'20%','Notes':'Cross referral' },
-  ];
-  allVouchers = [
-    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU012026','Received':'No','Redeemed':'No' },
-    { 'Issued To':'Muscle Up','Service':'1 Hour Sports Massage','Expiry Date':'2026-12-31','Code':'MU022026','Received':'Yes','Redeemed':'Yes' },
-  ];
-  allSpecial = [
-    { 'Name':'Mostafa Radi','Case':'Can do occasional sessions on weekdays.','Discount Code':'Radi20 (20%)' },
-  ];
+  allSpecial=[{Name:'Mostafa Radi',Case:'Occasional sessions on weekdays.','Discount Code':'Radi20 (20%)'}];
 }
 
 async function fetchData() {
-  if (!SHEET_ID) { document.getElementById('configBanner').style.display = 'flex'; loadDemoData(); renderAll(); return; }
-  document.getElementById('configBanner').style.display = 'none';
+  if (!SHEET_ID){document.getElementById('configBanner').style.display='flex';loadDemoData();renderAll();return}
+  document.getElementById('configBanner').style.display='none';
   try {
-    const [sp, pt, vc, sc] = await Promise.all([
-      fetchSheetCSV(TAB_SPONSORS), fetchSheetCSV(TAB_PARTNERS),
-      fetchSheetCSV(TAB_VOUCHERS), fetchSheetCSV(TAB_SPECIAL).catch(() => []),
-    ]);
-    allSponsors = sp.filter(r => r.Name && !r.Name.startsWith('Important'));
-    allPartners = pt.filter(r => r.Name && !r.Name.startsWith('Important'));
-    allVouchers = vc.filter(r => r['Issued To'] && !r['Issued To'].startsWith('Important'));
-    allSpecial  = sc.filter(r => r.Name);
+    const [sp,pt,vc,sc]=await Promise.all([fetchSheetCSV(TAB_SPONSORS),fetchSheetCSV(TAB_PARTNERS),fetchSheetCSV(TAB_VOUCHERS),fetchSheetCSV(TAB_SPECIAL).catch(()=>[])]);
+    allSponsors=sp.filter(r=>r.Name&&!r.Name.startsWith('Important'));
+    allPartners=pt.filter(r=>r.Name&&!r.Name.startsWith('Important'));
+    allVouchers=vc.filter(r=>r['Issued To']&&!r['Issued To'].startsWith('Important'));
+    allSpecial=sc.filter(r=>r.Name);
+    // Auto expand all voucher groups on first load
+    const groups = new Set(allVouchers.map(v => v['Issued To']));
+    groups.forEach(g => expandedGroups.add(g));
     renderAll();
-    document.getElementById('lastUpdated').textContent = `Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
-  } catch (err) {
-    console.error(err);
-    document.getElementById('configBanner').style.display = 'flex';
-    loadDemoData(); renderAll();
-  }
+    document.getElementById('lastUpdated').textContent=`Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
+  } catch(err){console.error(err);document.getElementById('configBanner').style.display='flex';loadDemoData();renderAll()}
 }
-function renderAll() { updateStats(); renderSponsors(allSponsors); renderPartners(allPartners); renderVouchers(allVouchers); renderSpecial(allSpecial); }
+function renderAll(){updateStats();renderSponsors(allSponsors);renderPartners(allPartners);renderVouchers(allVouchers);renderSpecial(allSpecial)}
 fetchData();
 </script>
 </body>
