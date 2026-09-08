@@ -501,7 +501,10 @@ async function fetchData() {
     const [sp,pt,vc,sc]=await Promise.all([fetchSheetCSV(TAB_SPONSORS),fetchSheetCSV(TAB_PARTNERS),fetchSheetCSV(TAB_VOUCHERS),fetchSheetCSV(TAB_SPECIAL).catch(()=>[])]);
     allSponsors=sp.filter(r=>r.Name&&!r.Name.startsWith('Important'));
     allPartners=pt.filter(r=>r.Name&&!r.Name.startsWith('Important'));
-    allVouchers=vc.filter(r=>r['Issued To']&&!r['Issued To'].startsWith('Important'));
+    allVouchers=vc.filter(r=>r['Issued To']&&!r['Issued To'].startsWith('Important')).map(v => {
+      if (v['Voucher Redeemed'] !== undefined && v['Redeemed'] === undefined) v['Redeemed'] = v['Voucher Redeemed'];
+      return v;
+    });
     allSpecial=sc.filter(r=>r.Name);
     renderAll();
     document.getElementById('lastUpdated').textContent=`Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
