@@ -124,7 +124,7 @@
   .voucher-count-badge.total { background: var(--dark-surface); color: var(--white-dim); }
   .voucher-group-items { overflow: hidden; transition: max-height 0.3s ease; }
   .voucher-group-items.collapsed { max-height: 0; }
-  .voucher-group-items.expanded { max-height: 2000px; }
+  .voucher-group-items.expanded { max-height: 10000px; }
   .voucher-item { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 8px; padding: 10px 16px 10px 32px; align-items: center; border-top: 1px solid rgba(58,76,77,0.3); font-size: 13px; }
   .voucher-item:hover { background: var(--dark-surface); }
   .voucher-item.v-redeemed { opacity: 0.4; }
@@ -235,7 +235,7 @@ let expandedRows = new Set();
 let expandedGroups = new Set();
 
 // ── CSV ──
-async function fetchSheetCSV(t){const u=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(t)}`;const r=await fetch(u);if(!r.ok)throw new Error(`Failed ${t}`);const txt=await r.text();if(t===TAB_VOUCHERS){const lines=txt.split('\n').filter(l=>l.trim());console.log('RAW CSV: tab="'+t+'", total non-empty lines (incl header):', lines.length);console.log('RAW CSV first 200 chars:', txt.substring(0,200))}return parseCSV(txt)}
+async function fetchSheetCSV(t){const u=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(t)}`;const r=await fetch(u);if(!r.ok)throw new Error(`Failed ${t}`);return parseCSV(await r.text())}
 function parseCSV(t){
   // FIX 1: Strip \r so \r\n line endings don't leave stray chars in values
   t = t.replace(/\r/g, '');
@@ -512,31 +512,6 @@ async function fetchData() {
   document.getElementById('configBanner').style.display='none';
   try {
     const [sp,pt,vc,sc]=await Promise.all([fetchSheetCSV(TAB_SPONSORS),fetchSheetCSV(TAB_PARTNERS),fetchSheetCSV(TAB_VOUCHERS),fetchSheetCSV(TAB_SPECIAL).catch(()=>[])]);
-
-    // ── DEBUG: trace where voucher rows are lost ──
-    console.log('=== VOUCHER DEBUG ===');
-    console.log('1. parseCSV returned rows:', vc.length);
-    console.log('   Headers:', Object.keys(vc[0] || {}));
-    console.log('   First row sample:', vc[0]);
-    console.log('   Last row sample:', vc[vc.length - 1]);
-
-    // Show all unique "Issued To" values and their counts
-    const issuedToCounts = {};
-    vc.forEach(r => {
-      const key = r['Issued To'] || '(EMPTY)';
-      issuedToCounts[key] = (issuedToCounts[key] || 0) + 1;
-    });
-    console.log('2. "Issued To" breakdown BEFORE any filter:', issuedToCounts);
-
-    // Check which rows would be removed by the Important filter
-    const importantRows = vc.filter(r => (r['Issued To']||'').startsWith('Important'));
-    console.log('3. Rows removed by "Important" filter:', importantRows.length, importantRows);
-
-    // Check rows with empty Issued To
-    const emptyIssuedTo = vc.filter(r => !r['Issued To']);
-    console.log('4. Rows with empty "Issued To":', emptyIssuedTo.length, emptyIssuedTo);
-    console.log('=== END DEBUG ===');
-
     allSponsors=sp.filter(r=>r.Name&&!r.Name.startsWith('Important'));
     allPartners=pt.filter(r=>r.Name&&!r.Name.startsWith('Important'));
 
@@ -554,7 +529,6 @@ async function fetchData() {
       }
     });
     allVouchers = rawVouchers.filter(v => v['Issued To']);
-    console.log('5. Final allVouchers count:', allVouchers.length);
 
     allSpecial=sc.filter(r=>r.Name);
     renderAll();
