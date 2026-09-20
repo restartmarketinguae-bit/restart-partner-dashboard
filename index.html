@@ -108,12 +108,10 @@
   .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--dark-card); border: 1px solid var(--green); color: var(--green); padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
   .toast.error { border-color: var(--red); color: var(--red); }
   .toast.show { opacity: 1; }
-  /* Renewal badge */
   .renewal-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin: 2px 0; }
   .renewal-badge.current { background: var(--green-dim); color: var(--green); }
   .renewal-badge.next { background: var(--yellow-dim); color: var(--yellow); }
   .renewal-badge.past { color: var(--white-dim); font-weight: 400; }
-  /* Voucher groups */
   .voucher-group { border-bottom: 2px solid var(--dark-border); }
   .voucher-group:last-child { border-bottom: none; }
   .voucher-group-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; transition: background 0.15s; }
@@ -238,7 +236,24 @@ let expandedGroups = new Set();
 
 // ── CSV ──
 async function fetchSheetCSV(t){const u=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(t)}`;const r=await fetch(u);if(!r.ok)throw new Error(`Failed ${t}`);return parseCSV(await r.text())}
-function parseCSV(t){const l=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){q=!q;c+=ch}else if(ch==='\n'&&!q){l.push(c);c=''}else{c+=ch}}if(c)l.push(c);const h=splitCSV(l[0]).map(x=>x.trim());const rows=[];for(let i=1;i<l.length;i++){if(!l[i].trim())continue;const v=splitCSV(l[i]);const o={};h.forEach((hh,idx)=>{o[hh]=(v[idx]||'').trim()});if(o[h[0]])rows.push(o)}return rows}
+function parseCSV(t){
+  // FIX 1: Strip \r so \r\n line endings don't leave stray chars in values
+  t = t.replace(/\r/g, '');
+  const l=[];let c='',q=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){q=!q;c+=ch}else if(ch==='\n'&&!q){l.push(c);c=''}else{c+=ch}}
+  if(c)l.push(c);
+  const h=splitCSV(l[0]).map(x=>x.trim());
+  const rows=[];
+  for(let i=1;i<l.length;i++){
+    if(!l[i].trim())continue;
+    const v=splitCSV(l[i]);
+    const o={};
+    h.forEach((hh,idx)=>{o[hh]=(v[idx]||'').trim()});
+    // FIX 2: Keep any row that has data in ANY column, not just the first column
+    if(Object.values(o).some(val=>val))rows.push(o);
+  }
+  return rows;
+}
 function splitCSV(l){const r=[];let c='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){c+='"';i++}else{q=!q}}else if(ch===','&&!q){r.push(c);c=''}else{c+=ch}}r.push(c);return r}
 
 // ── Helpers ──
@@ -365,7 +380,6 @@ function renderVouchers(data) {
   if (voucherFilter === 'redeemed') filtered = data.filter(v => (v.Redeemed||'').toLowerCase() === 'yes');
   if (!filtered.length) { container.innerHTML = '<div class="empty-state"><p>No vouchers found</p></div>'; return; }
 
-  // Group by Issued To
   const groups = {};
   filtered.forEach(v => {
     const key = v['Issued To'] || 'Unknown';
@@ -443,7 +457,6 @@ function updateStats() {
   document.getElementById('statActive').textContent = all.filter(d=>getStatus(d).cls==='active').length;
   document.getElementById('statExpiring').textContent = all.filter(d=>getStatus(d).cls==='expiring').length;
   document.getElementById('statVouchers').textContent = allVouchers.filter(v=>(v.Redeemed||'').toLowerCase()!=='yes').length;
-  // Vouchers expiring within 30 days
   const now = new Date();
   const expiringVouchers = allVouchers.filter(v => {
     if ((v.Redeemed||'').toLowerCase() === 'yes') return false;
@@ -501,10 +514,22 @@ async function fetchData() {
     const [sp,pt,vc,sc]=await Promise.all([fetchSheetCSV(TAB_SPONSORS),fetchSheetCSV(TAB_PARTNERS),fetchSheetCSV(TAB_VOUCHERS),fetchSheetCSV(TAB_SPECIAL).catch(()=>[])]);
     allSponsors=sp.filter(r=>r.Name&&!r.Name.startsWith('Important'));
     allPartners=pt.filter(r=>r.Name&&!r.Name.startsWith('Important'));
-    allVouchers=vc.filter(r=>r['Issued To']&&!r['Issued To'].startsWith('Important')).map(v => {
+
+    // FIX 3: Fill down empty "Issued To" cells from the previous row
+    let rawVouchers = vc.filter(r=>!((r['Issued To']||'').startsWith('Important'))).map(v => {
       if (v['Voucher Redeemed'] !== undefined && v['Redeemed'] === undefined) v['Redeemed'] = v['Voucher Redeemed'];
       return v;
     });
+    let lastIssuedTo = '';
+    rawVouchers.forEach(v => {
+      if (v['Issued To']) {
+        lastIssuedTo = v['Issued To'];
+      } else {
+        v['Issued To'] = lastIssuedTo;
+      }
+    });
+    allVouchers = rawVouchers.filter(v => v['Issued To']);
+
     allSpecial=sc.filter(r=>r.Name);
     renderAll();
     document.getElementById('lastUpdated').textContent=`Updated: ${new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}`;
