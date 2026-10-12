@@ -71,6 +71,8 @@
   .status.active { background: var(--green-dim); color: var(--green); }
   .status.expiring { background: var(--orange-dim); color: var(--orange); }
   .status.expired { background: var(--red-dim); color: var(--red); }
+  .status.renewing { background: var(--yellow-dim); color: var(--yellow); }
+  .renewal-badge.renewing { background: var(--yellow-dim); color: var(--yellow); }
   .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .status.active .status-dot { animation: pulse 2s infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -257,6 +259,8 @@ function parseCSV(t){
 function splitCSV(l){const r=[];let c='',q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(ch==='"'){if(q&&l[i+1]==='"'){c+='"';i++}else{q=!q}}else if(ch===','&&!q){r.push(c);c=''}else{c+=ch}}r.push(c);return r}
 
 // ── Helpers ──
+function isRenewing(r){if(!r)return false;const st=String(r['Status']||r['Status Override']||'');return /in progress|negotiat/i.test(st)||/renewal in progress/i.test(String(r.Notes||''))}
+function rowStatus(r){return isRenewing(r)?{label:'Renewal in progress',cls:'renewing'}:getStatus(r['Contract End'])}
 function getStatus(e){if(!e||e==='-')return{label:'Unknown',cls:'expired'};const end=new Date(e),now=new Date(),d=Math.ceil((end-now)/864e5);if(d<0)return{label:'Expired',cls:'expired'};if(d<=30)return{label:`${d}d left`,cls:'expiring'};return{label:'Active',cls:'active'}}
 function fmtDate(d){if(!d||d==='-')return'';const dt=new Date(d);if(isNaN(dt))return d;return dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
 function esc(s){if(!s)return'';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
@@ -323,8 +327,8 @@ function renderSponsors(data) {
   const tb = document.getElementById('sponsorsBody');
   if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No sponsors found</p></div></td></tr>'; return; }
   tb.innerHTML = data.map((s, i) => {
-    const st = getStatus(s['Contract End']); const id = `sp-${i}`; const open = expandedRows.has(id);
-    const renewal = getRenewalInfo(s['Contract Start'], s['Contract End']);
+    const st = rowStatus(s); const id = `sp-${i}`; const open = expandedRows.has(id);
+    const renewal = isRenewing(s) ? '<span class="renewal-badge renewing">Contract renewal in progress</span>' : getRenewalInfo(s['Contract Start'], s['Contract End']);
     return `<tr>
       <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
       <td class="name-cell">${esc(s.Name)}</td>
@@ -351,7 +355,7 @@ function renderPartners(data) {
   const tb = document.getElementById('partnersBody');
   if (!data.length) { tb.innerHTML = '<tr><td colspan="8"><div class="empty-state"><p>No partners found</p></div></td></tr>'; return; }
   tb.innerHTML = data.map((p, i) => {
-    const st = getStatus(p['Contract End']); const id = `pt-${i}`; const open = expandedRows.has(id);
+    const st = rowStatus(p); const id = `pt-${i}`; const open = expandedRows.has(id);
     return `<tr>
       <td><button class="expand-btn" onclick="toggle('${id}')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transform:rotate(${open?'90':'0'}deg);transition:transform .2s"><polyline points="9 18 15 12 9 6"/></svg></button></td>
       <td class="name-cell">${esc(p.Name)}</td>
@@ -453,9 +457,9 @@ function renderSpecial(data) {
 function updateStats() {
   document.getElementById('statSponsors').textContent = allSponsors.length;
   document.getElementById('statPartners').textContent = allPartners.length;
-  const all = [...allSponsors.map(s=>s['Contract End']), ...allPartners.map(p=>p['Contract End'])];
-  document.getElementById('statActive').textContent = all.filter(d=>getStatus(d).cls==='active').length;
-  document.getElementById('statExpiring').textContent = all.filter(d=>getStatus(d).cls==='expiring').length;
+  const all = [...allSponsors, ...allPartners];
+  document.getElementById('statActive').textContent = all.filter(r=>rowStatus(r).cls==='active').length;
+  document.getElementById('statExpiring').textContent = all.filter(r=>rowStatus(r).cls==='expiring').length;
   document.getElementById('statVouchers').textContent = allVouchers.filter(v=>(v.Redeemed||'').toLowerCase()!=='yes').length;
   const now = new Date();
   const expiringVouchers = allVouchers.filter(v => {
